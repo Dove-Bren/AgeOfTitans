@@ -9,13 +9,13 @@ import org.apache.logging.log4j.Logger;
 import com.SkyIsland.AgeOfTitans.blocks.HeartBlock;
 import com.SkyIsland.AgeOfTitans.blocks.SaturatedLiquidEtherium;
 import com.SkyIsland.AgeOfTitans.items.CR2;
-import com.SkyIsland.AgeOfTitans.items.CrystalVitreum;
+import com.SkyIsland.AgeOfTitans.items.CrystalVinteum;
 import com.SkyIsland.AgeOfTitans.items.ItemVectorSword;
 import com.SkyIsland.AgeOfTitans.items.TitanAmalgam;
 import com.SkyIsland.AgeOfTitans.items.TitanHeart;
 import com.SkyIsland.AgeOfTitans.items.Titarillium;
 import com.SkyIsland.AgeOfTitans.items.Vectorium;
-import com.SkyIsland.AgeOfTitans.items.VitreumBlend;
+import com.SkyIsland.AgeOfTitans.items.VinteumBlend;
 import com.SkyIsland.AgeOfTitans.mobs.FleshTitan;
 import com.SkyIsland.AgeOfTitans.mobs.Titan;
 import com.SkyIsland.AgeOfTitans.thaumcraft.TitanWandCore;
@@ -128,10 +128,10 @@ public class AgeOfTitans //Start the class Declaration
     	TitanAmalgam.preInit();
     	Titarillium.preInit();
     	HeartBlock.preInit();
-    	new VitreumBlend();
-    	VitreumBlend.preInit();
-    	new CrystalVitreum();
-    	CrystalVitreum.preInit();
+    	new VinteumBlend();
+    	VinteumBlend.preInit();
+    	new CrystalVinteum();
+    	CrystalVinteum.preInit();
 
     	proxy.preInit();
     	

@@ -1,7 +1,7 @@
 package com.SkyIsland.AgeOfTitans.blocks;
 
 import com.SkyIsland.AgeOfTitans.AgeOfTitans;
-import com.SkyIsland.AgeOfTitans.items.CrystalVitreum;
+import com.SkyIsland.AgeOfTitans.items.CrystalVinteum;
 
 import am2.blocks.liquid.BlockLiquidEssence;
 import cpw.mods.fml.common.registry.GameRegistry;
@@ -68,7 +68,7 @@ public class SaturatedLiquidEtherium extends BlockFluidClassic {
     @Override
     public boolean isFireSource(World world, int x, int y, int z, ForgeDirection side) {
     	//do what we do
-    	EntityItem ent = new EntityItem(world, x, y + 1.4, z, new ItemStack(CrystalVitreum.item, 4));
+    	EntityItem ent = new EntityItem(world, x, y + 1.4, z, new ItemStack(CrystalVinteum.item, 4));
     	world.spawnEntityInWorld(ent);
     	
     	world.setBlock(x, y, z, BlockLiquidEssence.liquidEssenceFluid.getBlock());

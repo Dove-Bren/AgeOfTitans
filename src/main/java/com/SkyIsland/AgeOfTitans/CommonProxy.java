@@ -1,7 +1,7 @@
 package com.SkyIsland.AgeOfTitans;
 
-import com.SkyIsland.AgeOfTitans.items.CrystalVitreum;
-import com.SkyIsland.AgeOfTitans.items.VitreumBlend;
+import com.SkyIsland.AgeOfTitans.items.CrystalVinteum;
+import com.SkyIsland.AgeOfTitans.items.VinteumBlend;
 import com.SkyIsland.AgeOfTitans.listeners.ItemListener;
 import com.SkyIsland.AgeOfTitans.thaumcraft.ThaumcraftBridge;
 
@@ -30,7 +30,7 @@ public class CommonProxy  {
 	  public void postInit() {
 		  ThaumcraftBridge.postInit();
 		  new ItemListener();
-		  VitreumBlend.postInit();
-		  CrystalVitreum.postInit();
+		  VinteumBlend.postInit();
+		  CrystalVinteum.postInit();
 	  }
 }

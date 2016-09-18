@@ -10,13 +10,13 @@ import net.minecraft.item.Item;
  * @author Skyler
  *
  */
-public class CrystalVitreum extends Item {
+public class CrystalVinteum extends Item {
 	
 	public static final String unlocalizedName = "crystal_vitreum";
 
-	public static CrystalVitreum item;
+	public static CrystalVinteum item;
 	
-	public CrystalVitreum() {
+	public CrystalVinteum() {
         super();
         this.setUnlocalizedName(unlocalizedName);
         this.setTextureName(AgeOfTitans.MODID + ":crystal_vitreum");

@@ -20,15 +20,15 @@ import net.minecraft.world.World;
  * @author Skyler
  *
  */
-public class VitreumBlend extends Item {
+public class VinteumBlend extends Item {
 	
 	public static final String unlocalizedName = "vitreum_blend";
 
-	public static VitreumBlend item;
+	public static VinteumBlend item;
 	
 	public static IRecipe recipe;
 	
-	public VitreumBlend() {
+	public VinteumBlend() {
         super();
         this.setUnlocalizedName(unlocalizedName);
         this.setTextureName(AgeOfTitans.MODID + ":vitreum_blend");

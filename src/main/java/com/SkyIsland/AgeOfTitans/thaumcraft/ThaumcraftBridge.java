@@ -6,16 +6,17 @@ import java.util.List;
 import com.SkyIsland.AgeOfTitans.AgeOfTitans;
 import com.SkyIsland.AgeOfTitans.blocks.HeartBlock;
 import com.SkyIsland.AgeOfTitans.blocks.SaturatedLiquidEtherium;
-import com.SkyIsland.AgeOfTitans.items.CrystalVitreum;
+import com.SkyIsland.AgeOfTitans.items.CrystalVinteum;
 import com.SkyIsland.AgeOfTitans.items.TitanAmalgam;
 import com.SkyIsland.AgeOfTitans.items.Titarillium;
 import com.SkyIsland.AgeOfTitans.items.Vectorium;
-import com.SkyIsland.AgeOfTitans.items.VitreumBlend;
+import com.SkyIsland.AgeOfTitans.items.VinteumBlend;
 
 import am2.blocks.BlocksCommonProxy;
 import am2.items.ItemOre;
 import am2.items.ItemsCommonProxy;
 import fox.spiteful.forbidden.DarkAspects;
+import fox.spiteful.forbidden.items.ForbiddenItems;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
@@ -23,10 +24,13 @@ import thaumcraft.api.ItemApi;
 import thaumcraft.api.ThaumcraftApi;
 import thaumcraft.api.aspects.Aspect;
 import thaumcraft.api.aspects.AspectList;
+import thaumcraft.api.crafting.IArcaneRecipe;
 import thaumcraft.api.crafting.InfusionRecipe;
+import thaumcraft.api.crafting.ShapedArcaneRecipe;
 import thaumcraft.api.research.ResearchCategories;
 import thaumcraft.api.research.ResearchItem;
 import thaumcraft.api.research.ResearchPage;
+import thaumcraft.api.wands.WandCap;
 import thaumcraft.api.wands.WandRod;
 import thaumcraft.common.config.ConfigItems;
 
@@ -37,10 +41,13 @@ public class ThaumcraftBridge {
 	private static final ResourceLocation RESEARCH_ICON_TEXT = new ResourceLocation(AgeOfTitans.MODID + ":textures/gui/research_icon.png");
 	
 	public static WandRod titanrod;
+	public static WandCap vinteumcap;
 	
 	public ThaumcraftBridge() {
 		//set up subitems
 		new TitanWandCore("titan_wand_core");
+		new CrystalVinteumCap("crystal_vinteum_cap");
+		new DestructionFocus("destuction_focus");
 	}
 
 	public static void postInit() {
@@ -50,8 +57,10 @@ public class ThaumcraftBridge {
 		  registerResearch();
 		  
 		  titanrod = new WandRod("titan_wand", TitanWandCore.capacity, new ItemStack(TitanWandCore.wand),
-				  10, new TitanWandCore.RodUpdated(), new ResourceLocation(AgeOfTitans.MODID + ":textures/items/titan_wand_core.png"));
+				  10, new TitanWandCore.RodUpdated(), new ResourceLocation(AgeOfTitans.MODID + ":textures/models/titan_wand_core.png"));
+		  //vinteumcap = new WandCap("vinteum", CrystalVinteumCap.visRate, new ItemStack(CrystalVinteumCap.cap), 5);
 		  
+		  //WandCap WAND_CAP_GOLD = new WandCap("gold", 1f, new ItemStack(ConfigItems.itemWandCap,1,1),3);
 		  registerRecipes();
 	}
 	
@@ -97,13 +106,17 @@ public class ThaumcraftBridge {
 
 		  ThaumcraftApi.registerObjectTag(new ItemStack(SaturatedLiquidEtherium.block), 
 				  (new AspectList()).add(Aspect.MAGIC, 6).add(Aspect.WATER, 3).add(Aspect.AURA, 1));
-		  ThaumcraftApi.registerObjectTag(new ItemStack(VitreumBlend.item), 
+		  ThaumcraftApi.registerObjectTag(new ItemStack(VinteumBlend.item), 
 				  (new AspectList()).add(Aspect.MAGIC, 4).add(Aspect.AURA, 1));
-		  ThaumcraftApi.registerObjectTag(new ItemStack(CrystalVitreum.item), 
+		  ThaumcraftApi.registerObjectTag(new ItemStack(CrystalVinteum.item), 
 				  (new AspectList()).add(Aspect.MAGIC, 3).add(Aspect.AURA, 1).add(Aspect.CRYSTAL, 3));
 
 		  ThaumcraftApi.registerObjectTag(new ItemStack(TitanWandCore.wand), 
 				  (new AspectList()).add(Aspect.MAGIC, 4).add(Aspect.LIFE, 2).add(Aspect.HEAL, 2).add(Aspect.DARKNESS, 2));
+		  ThaumcraftApi.registerObjectTag(new ItemStack(CrystalVinteumCap.cap), 
+				  (new AspectList()).add(Aspect.MAGIC, 4).add(Aspect.CRYSTAL, 2));
+		  ThaumcraftApi.registerObjectTag(new ItemStack(DestructionFocus.focus), 
+				  (new AspectList()).add(DarkAspects.WRATH, 4).add(Aspect.MINE, 2));
 		  
 	}
 	
@@ -127,12 +140,32 @@ public class ThaumcraftBridge {
 		Research.TITAN_ROD.getItem().setPages(pages.toArray(new ResearchPage[0]));
 		
 		pages = new LinkedList<ResearchPage>();
-		pages.add(new ResearchPage("You've seen vitreum do wonderful things when used with your spell crafting altar, but failed to find a practical bridge between the powerful work of crafted spells and the refined world of Thaumcraft. Through a surprisingly-small number of experiments, you have finally been able to create a material made of vitreum that seems quite receptive to vis! Crystal Vitreum, as you've called it, is a crystal material made of vitreum and soaked in Liquid Essentia."));
-		pages.add(new ResearchPage("The process is actually quite mundane; first, you must assemble a compound of vitreum and arcane ash. Simply mixing the two by hand in equal parts works. Then, find a pool of Liquid Essence and throw the compound in. The Liquid Essence quickly transforms into a strange solution which you have termed 'Saturated Etherium'. Once this is done, the final step is to reduce the liquid, leaving behind only the crystal vitreum."));
-		pages.add(new ResearchPage("To do this, you must light a fire directly above the saturated etherium. Once the fumes catch, the process is exceptionally quick. The crystal vitreum is produced, leaving behind most of the liquid essence."));
-		pages.add(new ResearchPage(VitreumBlend.recipe));
+		pages.add(new ResearchPage("You've seen vinteum do wonderful things when used with your spell crafting altar, but failed to find a practical bridge between the powerful work of crafted spells and the refined world of Thaumcraft. Through a surprisingly-small number of experiments, you have finally been able to create a material made of vinteum that seems quite receptive to vis! Crystal Vinteum, as you've called it, is a crystal material made of vinteum and soaked in Liquid Essentia."));
+		pages.add(new ResearchPage("The process is actually quite mundane; first, you must assemble a compound of vinteum and arcane ash. Simply mixing the two by hand in equal parts works. Then, find a pool of Liquid Essence and throw the compound in. The Liquid Essence quickly transforms into a strange solution which you have termed 'Saturated Etherium'. Once this is done, the final step is to reduce the liquid, leaving behind only the crystal vinteum."));
+		pages.add(new ResearchPage("To do this, you must light a fire directly above the saturated etherium. Once the fumes catch, the process is exceptionally quick. The crystal vinteum is produced, leaving behind most of the liquid essence."));
+		pages.add(new ResearchPage(VinteumBlend.recipe));
 		
-		Research.CRYSTAL_VITREUM.getItem().setPages(pages.toArray(new ResearchPage[0]));
+		Research.CRYSTAL_VINTEUM.getItem().setPages(pages.toArray(new ResearchPage[0]));
+		
+		pages = new LinkedList<ResearchPage>();
+		pages.add(new ResearchPage("The idea to use the newly discovered Crystal Vinteum as materials for wand caps came almost immediately. While the material isn't quite as potent as Thaumium, the crystals form a cap still capable of reducing vis cost when used on a wand."));
+		pages.add(new ResearchPage(CrystalVinteumCap.recipe));
+				
+		Research.VINTEUM_CAP.getItem().setPages(pages.toArray(new ResearchPage[0]));
+		
+		IArcaneRecipe arcaneRecipe;
+		
+		arcaneRecipe = ThaumcraftApi.addArcaneCraftingRecipe(
+				"FOCUS_destruction", new ItemStack(DestructionFocus.focus), new AspectList().add(Aspect.ENTROPY, 15).add(Aspect.EARTH, 10).add(Aspect.FIRE, 10),
+				"vwv", "lhl", "vwv", 'v', CrystalVinteum.item, 'w', new ItemStack(ForbiddenItems.deadlyShards, 1, 0),
+				'l', new ItemStack(ForbiddenItems.deadlyShards, 1, 4), 'h', AgeOfTitans.titanHeart);
+		
+		pages = new LinkedList<ResearchPage>();
+		pages.add(new ResearchPage("The invention of crystal vinteum has led to many other discovered. One example is the use of the crystal is a base for wand foci. The crystal seems to work best when large amounts of energy are dumped into it and released quickly, when compared to quartz. The Destruction Focus is the perfect example. The focus takes a large amount of vis and channels it into an emotional, anger-filled destructive blast. Like the Flesh Titan who's heart the focus is created"));
+		pages.add(new ResearchPage("from, the focus then destroys all breakable blocks around it!"));
+		pages.add(new ResearchPage(arcaneRecipe));
+		
+		Research.DESTRUCTION_FOCUS.getItem().setPages(pages.toArray(new ResearchPage[0]));
 	}
 	
 	private static final void registerResearch() {
@@ -146,11 +179,17 @@ public class ThaumcraftBridge {
 		TITAN_ROD("ROD_titan_wand", new AspectList().add(DarkAspects.WRATH, 1)
 										.add(Aspect.FLESH, 1)
 										.add(Aspect.MAN, 1),
-			5, 5, 1, new ItemStack(TitanWandCore.wand), new String[]{"ROD_primal_staff"}, new ItemStack[]{new ItemStack(AgeOfTitans.titanHeart)},
+			3, 3, 1, new ItemStack(TitanWandCore.wand), new String[]{"ROD_primal_staff"}, new ItemStack[]{new ItemStack(AgeOfTitans.titanHeart)},
 			true, false),
-		CRYSTAL_VITREUM("crystal_vitreum", new AspectList().add(Aspect.AURA, 4).add(Aspect.MAGIC, 2).add(Aspect.CRYSTAL, 5),
-				2, 2, 1, new ItemStack(CrystalVitreum.item),
-				null, new ItemStack[]{new ItemStack(ItemsCommonProxy.itemOre, 1, ItemOre.META_VINTEUMDUST), new ItemStack(BlocksCommonProxy.liquidEssence)}, true, true);
+		CRYSTAL_VINTEUM("crystal_vinteum", new AspectList().add(Aspect.AURA, 4).add(Aspect.MAGIC, 2).add(Aspect.CRYSTAL, 5),
+				1, 1, 1, new ItemStack(CrystalVinteum.item),
+				null, new ItemStack[]{new ItemStack(ItemsCommonProxy.itemOre, 1, ItemOre.META_VINTEUMDUST), new ItemStack(BlocksCommonProxy.liquidEssence)}, true, true),
+		VINTEUM_CAP("CAP_crystal_vinteum", new AspectList().add(Aspect.METAL, 4).add(Aspect.CRYSTAL, 3),
+				1, 3, 2, new ItemStack(CrystalVinteumCap.cap), new String[]{"CAP_gold", "crystal_vinteum"}, new ItemStack[]{new ItemStack(CrystalVinteum.item)},
+				false, true),
+		DESTRUCTION_FOCUS("FOCUS_destruction", new AspectList().add(Aspect.MINE, 1).add(DarkAspects.WRATH, 1).add(Aspect.GREED, 1),
+				1, 1, 2, new ItemStack(DestructionFocus.focus), new String[]{"FOCUSFIRE", "crystal_vinteum"}, null,
+				false, false);
 		
 		private ResearchItem item;
 		

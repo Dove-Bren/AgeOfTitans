@@ -2,6 +2,8 @@ build.gradle
 .classpath
 bin/
 build/
+libs/
+dist.sh
 eclipse/
 .gradle/
 gradle*

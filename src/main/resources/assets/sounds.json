@@ -1,0 +1,29 @@
+{
+    "mob.titan.idle":
+    {
+        "category": "neutral",
+        "sounds":
+        [
+            "mob/titan/idle1",
+            "mob/titan/idle2"
+        ]
+    },
+    "mob.titan.death":
+    {
+        "category": "neutral",
+        "sounds":
+        [
+            "mob/titan/death1",
+            "mob/titan/death2"
+        ]
+    },
+    "mob.titan.hurt":
+    {
+        "category": "neutral",
+        "sounds":
+        [
+            "mob/titan/hurt1",
+            "mob/titan/hurt2"
+        ]        
+    }
+}

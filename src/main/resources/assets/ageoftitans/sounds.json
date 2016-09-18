@@ -1,0 +1,78 @@
+{
+    "mob.titan.idle":
+    {
+        "category": "neutral",
+        "sounds":
+        [
+            "mob/titan/idle1",
+            "mob/titan/idle2"
+        ]
+    },
+    "mob.titan.death":
+    {
+        "category": "neutral",
+        "sounds":
+        [
+            "mob/titan/death1",
+            "mob/titan/death2"
+        ]
+    },
+    "mob.titan.hurt":
+    {
+        "category": "neutral",
+        "sounds":
+        [
+            "mob/titan/hurt1",
+            "mob/titan/hurt2"
+        ]        
+    },
+    "mob.titan.angry":
+    {
+        "category": "neutral",
+        "sounds":
+        [
+            "mob/titan/angry1"
+        ]        
+    },
+    "mob.titan.attack":
+    {
+        "category": "neutral",
+        "sounds":
+        [
+            "mob/titan/attack1",
+            "mob/titan/attack2"
+        ] 
+    },  
+    "misc.crumble":
+    {
+        "category": "neutral",
+        "sounds":
+        [
+            "misc/crumble"
+        ]    
+    },
+    "misc.blast":
+    {
+        "category": "neutral",
+        "sounds":
+        [
+            "misc/blast"
+        ]    
+    },
+    "item.titan_wand.eat":
+    {
+        "category": "neutral",
+        "sounds":
+        [
+            "items/titan_ring_eat"
+        ]
+    },
+    "item.vector_sword.fail":
+    {
+        "category": "neutral",
+        "sounds":
+        [
+            "items/vector_sword_click"
+        ]
+    }
+}

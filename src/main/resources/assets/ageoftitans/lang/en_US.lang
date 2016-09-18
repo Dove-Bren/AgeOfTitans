@@ -1,0 +1,38 @@
+item.vectorium_ingot.name=Vectorium Ingot
+item.vector_sword.name=Vector Sword
+item.crr.name=CR2 Pellets
+item.vectorium_bucket.name=Vectorium Bucket
+item.titan_heart.name=Titan Heart
+item.amalgam_ingot.name=Titan Amalgum Ingot
+item.amalgam_bucket.name=Titan Amalgum
+item.titarillium_ingot.name=Titarillium Ingot
+item.titarillium_bucket.name=Titarillium
+item.titan_wand_core.name=Titan Wand Core
+item.vitreum_blend.name=Vitreum Blend
+item.crystal_viterum.name=Crystal Vitreum
+#
+tile.molten.vectorium.name=Vectorium
+tile.vectoriumFluidBlock.name=Vectorium
+tile.amalgamFluidBlock.name=Titan Amalgum
+tile.titarilliumFluidBlock.name=Titarillium
+tile.saturatedEtheriumFluidBlock.name=Saturated Etherium
+tile.heartblock.name=Heart Block
+#
+entity.ageoftitans.FleshTitan.name=Titan
+entity.ageoftitans.Titan.name=Titan
+entity.ageoftitans.TitanPart.name=Titan
+#
+fluid.VectoriumFluid.name=Vectorium
+fluid.VectoriumFluid=Vectorium
+#
+tc.research_name.ROD_titan_wand=Titan Wands
+tc.research_text.ROD_titan_wand=[TI] What's Bigger Than A Whale?
+tc.research_name.crystal_viterum=Crystal Vitreum
+tc.research_text.crystal_viterum=[TI] Bridging the Gap
+#
+tc.research_category.Titanic=Titanic
+#
+item.Wand.titan_wand.rod=Titan Heart
+#
+itemGroup.ageoftitans=Age Of Titans
+itemGroup.ageoftitans.magic=Age of Titans Magic

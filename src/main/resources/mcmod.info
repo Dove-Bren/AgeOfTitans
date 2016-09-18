@@ -1,0 +1,16 @@
+[
+{
+  "modid": "ageoftitans",
+  "name": "Age Of Titans",
+  "description": "Mod used by the NMT Minecraft club to make a unique titan experience",
+  "version": "${version}",
+  "mcversion": "${mcversion}",
+  "url": "",
+  "updateUrl": "",
+  "authorList": ["Skyler Manzanares"],
+  "credits": "NOBYD",
+  "logoFile": "",
+  "screenshots": [],
+  "dependencies": []
+}
+]

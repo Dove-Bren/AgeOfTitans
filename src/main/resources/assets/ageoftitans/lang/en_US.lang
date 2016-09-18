@@ -9,7 +9,7 @@ item.titarillium_ingot.name=Titarillium Ingot
 item.titarillium_bucket.name=Titarillium
 item.titan_wand_core.name=Titan Wand Core
 item.vitreum_blend.name=Vitreum Blend
-item.crystal_viterum.name=Crystal Vitreum
+item.crystal_vitreum.name=Crystal Vitreum
 #
 tile.molten.vectorium.name=Vectorium
 tile.vectoriumFluidBlock.name=Vectorium
@@ -27,8 +27,8 @@ fluid.VectoriumFluid=Vectorium
 #
 tc.research_name.ROD_titan_wand=Titan Wands
 tc.research_text.ROD_titan_wand=[TI] What's Bigger Than A Whale?
-tc.research_name.crystal_viterum=Crystal Vitreum
-tc.research_text.crystal_viterum=[TI] Bridging the Gap
+tc.research_name.crystal_vitreum=Crystal Vitreum
+tc.research_text.crystal_vitreum=[TI] Bridging the Gap
 #
 tc.research_category.Titanic=Titanic
 #

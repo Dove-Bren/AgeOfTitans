@@ -30,7 +30,7 @@ public class CrystalVinteumCap extends Item {
         
         recipe = GameRegistry.addShapedRecipe(new ItemStack(this), "xxx", "x x", "   ",
         		'x', new ItemStack(CrystalVinteum.item));
-        ThaumcraftBridge.vinteumcap = new WandCap("vinteum", CrystalVinteumCap.visRate, new ItemStack(CrystalVinteumCap.cap), 5);
+        ThaumcraftBridge.vinteumcap = new WandCap("CAP_crystal_vinteum", CrystalVinteumCap.visRate, new ItemStack(CrystalVinteumCap.cap), 5);
         ThaumcraftBridge.vinteumcap.setTexture(new ResourceLocation(AgeOfTitans.MODID + ":textures/models/cap_crystal_vinteum.png"));
 	}
 }

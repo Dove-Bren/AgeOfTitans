@@ -22,7 +22,7 @@ import net.minecraft.world.World;
  */
 public class VinteumBlend extends Item {
 	
-	public static final String unlocalizedName = "vitreum_blend";
+	public static final String unlocalizedName = "vinteum_blend";
 
 	public static VinteumBlend item;
 	
@@ -31,7 +31,7 @@ public class VinteumBlend extends Item {
 	public VinteumBlend() {
         super();
         this.setUnlocalizedName(unlocalizedName);
-        this.setTextureName(AgeOfTitans.MODID + ":vitreum_blend");
+        this.setTextureName(AgeOfTitans.MODID + ":vinteum_blend");
         this.maxStackSize = 64;
         this.setCreativeTab(AgeOfTitans.magicTab);
         GameRegistry.registerItem(this, unlocalizedName);

@@ -5,11 +5,11 @@ import com.SkyIsland.AgeOfTitans.AgeOfTitans;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import fox.spiteful.forbidden.DarkAspects;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.MovingObjectPosition;
@@ -37,14 +37,15 @@ public class DestructionFocus extends ItemFocusBasic {
     AspectList visCost = (new AspectList()).add(Aspect.ENTROPY, 1000).add(Aspect.EARTH, 1000);
     AspectList stoneCost = (new AspectList()).add(Aspect.ENTROPY, 1000).add(Aspect.EARTH, 1000).add(Aspect.ORDER, 500);
     AspectList vacuumCost = (new AspectList()).add(Aspect.ENTROPY, 1000).add(Aspect.EARTH, 1000).add(Aspect.AIR, 500);
-    FocusUpgradeType stoneseeker = getUpgrade(35, new ResourceLocation(AgeOfTitans.MODID + ":textures/misc/stoneseeker.png"), "forbidden.upgrade.hellfire.name", "forbidden.upgrade.hellfire.text", (new AspectList()).add(DarkAspects.NETHER, 1));
-    FocusUpgradeType vacuum = getUpgrade(36, new ResourceLocation(AgeOfTitans.MODID + ":textures/misc/vacuum.png"), "forbidden.upgrade.pandemonium.name", "forbidden.upgrade.pandemonium.text", (new AspectList()).add(Aspect.DARKNESS, 1));
+    FocusUpgradeType stoneseeker = getUpgrade(35, new ResourceLocation(AgeOfTitans.MODID + ":textures/misc/stoneseeker.png"), AgeOfTitans.MODID + ".upgrade.stoneseeker.name", AgeOfTitans.MODID + ".upgrade.stoneseeker.text", (new AspectList()).add(Aspect.EARTH, 3).add(Aspect.ORDER, 5));
+    FocusUpgradeType vacuum = getUpgrade(36, new ResourceLocation(AgeOfTitans.MODID + ":textures/misc/vacuum.png"),  AgeOfTitans.MODID + ".upgrade.vacuum.name", AgeOfTitans.MODID + ".upgrade.vacuum.text", (new AspectList()).add(Aspect.DARKNESS, 1));
 
     private static final int baseRadius = 4;
     
     public DestructionFocus(String unlocalizedName){
         super();
         setCreativeTab(AgeOfTitans.magicTab);
+        this.setUnlocalizedName(unlocalizedName);
         GameRegistry.registerItem(this, unlocalizedName);
         focus = this;
     }
@@ -75,7 +76,7 @@ public class DestructionFocus extends ItemFocusBasic {
     		for (z = ((int) player.posZ) - radius; z < maxz; z++) {
     			Block block = world.getBlock(x, y, z);
     			if(block != Blocks.bedrock)
-    			if (player.canHarvestBlock(block)) {
+    			if (player.canPlayerEdit(x, y, z, 0, new ItemStack(Items.diamond_pickaxe))) {
     				
     				//if isStone, just do stone and derivatives
     				if (isStone && !OreDictionary.itemMatches(stoneArchtype, new ItemStack(block), false))
@@ -83,6 +84,7 @@ public class DestructionFocus extends ItemFocusBasic {
     				
     				if (isVacuum) {
     					if (!player.inventory.addItemStackToInventory(new ItemStack(block))) {
+    						System.out.print(".");
     						block.dropBlockAsItem(world, (int) player.posX - 1, (int) player.posY + 1, (int) player.posZ - 1, world.getBlockMetadata(x, y, z), 0);
     					}
     				} else {

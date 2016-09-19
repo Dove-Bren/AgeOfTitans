@@ -26,7 +26,6 @@ import thaumcraft.api.aspects.Aspect;
 import thaumcraft.api.aspects.AspectList;
 import thaumcraft.api.crafting.IArcaneRecipe;
 import thaumcraft.api.crafting.InfusionRecipe;
-import thaumcraft.api.crafting.ShapedArcaneRecipe;
 import thaumcraft.api.research.ResearchCategories;
 import thaumcraft.api.research.ResearchItem;
 import thaumcraft.api.research.ResearchPage;
@@ -47,7 +46,7 @@ public class ThaumcraftBridge {
 		//set up subitems
 		new TitanWandCore("titan_wand_core");
 		new CrystalVinteumCap("crystal_vinteum_cap");
-		new DestructionFocus("destuction_focus");
+		new DestructionFocus("destruction_focus");
 	}
 
 	public static void postInit() {
@@ -188,7 +187,7 @@ public class ThaumcraftBridge {
 				1, 3, 2, new ItemStack(CrystalVinteumCap.cap), new String[]{"CAP_gold", "crystal_vinteum"}, new ItemStack[]{new ItemStack(CrystalVinteum.item)},
 				false, true),
 		DESTRUCTION_FOCUS("FOCUS_destruction", new AspectList().add(Aspect.MINE, 1).add(DarkAspects.WRATH, 1).add(Aspect.GREED, 1),
-				1, 1, 2, new ItemStack(DestructionFocus.focus), new String[]{"FOCUSFIRE", "crystal_vinteum"}, null,
+				1, 2, 2, new ItemStack(DestructionFocus.focus), new String[]{/*"FOCUSFIRE", */"crystal_vinteum"}, null,
 				false, false);
 		
 		private ResearchItem item;
@@ -204,12 +203,18 @@ public class ThaumcraftBridge {
 			}
 			if (isSpecial)
 				item.isSpecial();
-			item.parentsHidden = parents;
+			//item.parentsHidden = parents;
+			if (parents != null)
+				item.setParents(parents);
 			
 			if (itemScans == null && parents == null)
 				;
-			else {
+			else if (itemScans == null) {
+				item.setConcealed();
+				System.out.println(key + " research is 'concealed'");
+			} else {
 				item.setHidden();
+				System.out.println(key + " research is 'hidden'");
 			}
 			if (isSecondary)
 				item.setSecondary();

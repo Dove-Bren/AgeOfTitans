@@ -10,6 +10,8 @@ item.titarillium_bucket.name=Titarillium
 item.titan_wand_core.name=Titan Wand Core
 item.vinteum_blend.name=Vinteum Blend
 item.crystal_vinteum.name=Crystal Vinteum
+item.crystal_vinteum_cap.name=Crystal Vinteum Cap
+item.destruction_focus.name=Destruction Focus
 #
 tile.molten.vectorium.name=Vectorium
 tile.vectoriumFluidBlock.name=Vectorium
@@ -38,3 +40,8 @@ item.Wand.titan_wand.rod=Titan Heart
 #
 itemGroup.ageoftitans=Age Of Titans
 itemGroup.ageoftitans.magic=Age of Titans Magic
+#
+ageoftitans.upgrade.stoneseeker.name=Stone Seeker
+ageoftitans.upgrade.stoneseeker.text=Channel your wrath in a more organized fashion, destroying only stone and other common blocks and leaving ores suspended
+ageoftitans.upgrade.vacuum.name=Vacuum
+ageoftitans.upgrade.vacuum.text=Instead of dropping items you break, pick them up immediately and place them in your inventory

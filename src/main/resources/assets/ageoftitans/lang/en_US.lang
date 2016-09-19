@@ -12,6 +12,7 @@ item.vinteum_blend.name=Vinteum Blend
 item.crystal_vinteum.name=Crystal Vinteum
 item.crystal_vinteum_cap.name=Crystal Vinteum Cap
 item.destruction_focus.name=Destruction Focus
+item.leech_focus.name=Leech Focus
 #
 tile.molten.vectorium.name=Vectorium
 tile.vectoriumFluidBlock.name=Vectorium
@@ -33,6 +34,12 @@ tc.research_name.crystal_vinteum=Crystal Vinteum
 tc.research_text.crystal_vinteum=[TI] Bridging the Gap
 tc.research_name.CAP_crystal_vinteum=Crystal Vinteum Caps
 tc.research_text.CAP_crystal_vinteum=[TI] Cheap And Easy
+tc.research_name.FOCUS_destruction=Destruction Wand Focus
+tc.research_text.FOCUS_destruction=[TI] They can't be the only ones
+tc.research_name.FOCUS_leech=Leech Wand Focus
+tc.research_text.FOCUS_leech=[TI] Nope, that's mine now!
+tc.research_name.basic_titan=Titans!
+tc.research_text.basic_titan=[TI] Where do they come from? Why is their neck so soft?
 #
 tc.research_category.Titanic=Titanic
 #
@@ -45,3 +52,5 @@ ageoftitans.upgrade.stoneseeker.name=Stone Seeker
 ageoftitans.upgrade.stoneseeker.text=Channel your wrath in a more organized fashion, destroying only stone and other common blocks and leaving ores suspended
 ageoftitans.upgrade.vacuum.name=Vacuum
 ageoftitans.upgrade.vacuum.text=Instead of dropping items you break, pick them up immediately and place them in your inventory
+ageoftitans.upgrade.vampire.name=Vampire
+ageoftitans.upgrade.vampire.text=The wand focus will convert damage into health. This replaces any other effect, like regaining hunger.

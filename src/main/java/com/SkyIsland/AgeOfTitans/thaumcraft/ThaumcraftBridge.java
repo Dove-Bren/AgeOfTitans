@@ -32,6 +32,7 @@ import thaumcraft.api.research.ResearchPage;
 import thaumcraft.api.wands.WandCap;
 import thaumcraft.api.wands.WandRod;
 import thaumcraft.common.config.ConfigItems;
+import thaumic.tinkerer.common.lib.LibResearch;
 
 public class ThaumcraftBridge {
 	
@@ -47,6 +48,7 @@ public class ThaumcraftBridge {
 		new TitanWandCore("titan_wand_core");
 		new CrystalVinteumCap("crystal_vinteum_cap");
 		new DestructionFocus("destruction_focus");
+		new LeechFocus("leech_focus");
 	}
 
 	public static void postInit() {
@@ -57,7 +59,8 @@ public class ThaumcraftBridge {
 		  
 		  titanrod = new WandRod("titan_wand", TitanWandCore.capacity, new ItemStack(TitanWandCore.wand),
 				  10, new TitanWandCore.RodUpdated(), new ResourceLocation(AgeOfTitans.MODID + ":textures/models/titan_wand_core.png"));
-		  //vinteumcap = new WandCap("vinteum", CrystalVinteumCap.visRate, new ItemStack(CrystalVinteumCap.cap), 5);
+		  vinteumcap = new WandCap("CAP_crystal_vinteum", CrystalVinteumCap.visRate, new ItemStack(CrystalVinteumCap.cap), 1);
+	      vinteumcap.setTexture(new ResourceLocation(AgeOfTitans.MODID + ":textures/models/cap_crystal_vinteum.png"));
 		  
 		  //WandCap WAND_CAP_GOLD = new WandCap("gold", 1f, new ItemStack(ConfigItems.itemWandCap,1,1),3);
 		  registerRecipes();
@@ -116,6 +119,8 @@ public class ThaumcraftBridge {
 				  (new AspectList()).add(Aspect.MAGIC, 4).add(Aspect.CRYSTAL, 2));
 		  ThaumcraftApi.registerObjectTag(new ItemStack(DestructionFocus.focus), 
 				  (new AspectList()).add(DarkAspects.WRATH, 4).add(Aspect.MINE, 2));
+		  ThaumcraftApi.registerObjectTag(new ItemStack(LeechFocus.focus), 
+				  (new AspectList()).add(DarkAspects.GLUTTONY, 4).add(Aspect.HUNGER, 8));
 		  
 	}
 	
@@ -160,11 +165,26 @@ public class ThaumcraftBridge {
 				'l', new ItemStack(ForbiddenItems.deadlyShards, 1, 4), 'h', AgeOfTitans.titanHeart);
 		
 		pages = new LinkedList<ResearchPage>();
-		pages.add(new ResearchPage("The invention of crystal vinteum has led to many other discovered. One example is the use of the crystal is a base for wand foci. The crystal seems to work best when large amounts of energy are dumped into it and released quickly, when compared to quartz. The Destruction Focus is the perfect example. The focus takes a large amount of vis and channels it into an emotional, anger-filled destructive blast. Like the Flesh Titan who's heart the focus is created"));
-		pages.add(new ResearchPage("from, the focus then destroys all breakable blocks around it!"));
+		pages.add(new ResearchPage("The invention of crystal vinteum has led to many other discoveries. One example is the use of the crystal as a base for wand foci. The crystal seems to work best when large amounts of energy are dumped into it and released quickly, when compared to quartz. The Destruction Focus is the perfect example. The focus takes a large amount of vis and channels it into an emotional, anger-filled destructive blast. Like the Flesh Titan who's heart the focus is created from, the focus then destroys all breakable blocks around it!"));
 		pages.add(new ResearchPage(arcaneRecipe));
 		
 		Research.DESTRUCTION_FOCUS.getItem().setPages(pages.toArray(new ResearchPage[0]));
+		
+		arcaneRecipe = ThaumcraftApi.addArcaneCraftingRecipe(
+				"FOCUS_leech", new ItemStack(LeechFocus.focus), new AspectList().add(Aspect.ENTROPY, 15).add(Aspect.FIRE, 10).add(Aspect.WATER, 10),
+				"vgv", "sps", "vgv", 'v', CrystalVinteum.item, 'g', new ItemStack(ForbiddenItems.deadlyShards, 1, 6),
+				's', new ItemStack(ForbiddenItems.deadlyShards, 1, 5), 'h', ItemApi.getItem("itemFocusPech", 0));
+		
+		pages = new LinkedList<ResearchPage>();
+		pages.add(new ResearchPage("After transforming the Pech's Curse focus into one of healing, you wondered what else you might be able to do. Combined with the power of the crystal vinteum you've made, you have found a new use for the focus. Instead of completely discarding the focus' inate harming abilities, you alter them such that the target is still damaged, but their energy is instead transferred to you! With the leech focus, damage dealt to enemies restores your own hunger!"));
+		pages.add(new ResearchPage(arcaneRecipe));
+		
+		Research.LEECH_FOCUS.getItem().setPages(pages.toArray(new ResearchPage[0]));
+		
+		pages = new LinkedList<ResearchPage>();
+		pages.add(new ResearchPage("Magic exists all around you. Just look at those huge Titans. Certainly, that much rage and wrath couldn't exist if there wasn't another plane of energy to feed it. They don't even seem to eat cows and stuff. You're not sure what, but you know there must be magic involved. The only question is... where does it come from?"));
+		
+		Research.TITANS.getItem().setPages(pages.toArray(new ResearchPage[0]));
 	}
 	
 	private static final void registerResearch() {
@@ -172,22 +192,29 @@ public class ThaumcraftBridge {
 		
 		for (Research r : Research.values())
 			ResearchCategories.addResearch(r.getItem());
+		
+		Research.TITANS.getItem().setAutoUnlock();
 	}
 	
 	private static enum Research {
+		TITANS("basic_titan", null, 5, 5, 1, new ItemStack(AgeOfTitans.titanHeart),
+				null, null, true, false),
 		TITAN_ROD("ROD_titan_wand", new AspectList().add(DarkAspects.WRATH, 1)
 										.add(Aspect.FLESH, 1)
 										.add(Aspect.MAN, 1),
-			3, 3, 1, new ItemStack(TitanWandCore.wand), new String[]{"ROD_primal_staff"}, new ItemStack[]{new ItemStack(AgeOfTitans.titanHeart)},
+			4, 4, 1, new ItemStack(TitanWandCore.wand), new String[]{"basic_titan", "ROD_primal_staff"}, new ItemStack[]{new ItemStack(AgeOfTitans.titanHeart)},
 			true, false),
 		CRYSTAL_VINTEUM("crystal_vinteum", new AspectList().add(Aspect.AURA, 4).add(Aspect.MAGIC, 2).add(Aspect.CRYSTAL, 5),
-				1, 1, 1, new ItemStack(CrystalVinteum.item),
-				null, new ItemStack[]{new ItemStack(ItemsCommonProxy.itemOre, 1, ItemOre.META_VINTEUMDUST), new ItemStack(BlocksCommonProxy.liquidEssence)}, true, true),
+				6, 6, 1, new ItemStack(CrystalVinteum.item),
+				new String[]{"basic_titan"}, new ItemStack[]{new ItemStack(ItemsCommonProxy.itemOre, 1, ItemOre.META_VINTEUMDUST), new ItemStack(BlocksCommonProxy.liquidEssence)}, true, true),
 		VINTEUM_CAP("CAP_crystal_vinteum", new AspectList().add(Aspect.METAL, 4).add(Aspect.CRYSTAL, 3),
-				1, 3, 2, new ItemStack(CrystalVinteumCap.cap), new String[]{"CAP_gold", "crystal_vinteum"}, new ItemStack[]{new ItemStack(CrystalVinteum.item)},
+				6, 8, 2, new ItemStack(CrystalVinteumCap.cap), new String[]{"CAP_gold", "crystal_vinteum"}, new ItemStack[]{new ItemStack(CrystalVinteum.item)},
 				false, true),
 		DESTRUCTION_FOCUS("FOCUS_destruction", new AspectList().add(Aspect.MINE, 1).add(DarkAspects.WRATH, 1).add(Aspect.GREED, 1),
-				1, 2, 2, new ItemStack(DestructionFocus.focus), new String[]{/*"FOCUSFIRE", */"crystal_vinteum"}, null,
+				8, 6, 2, new ItemStack(DestructionFocus.focus), new String[]{"FOCUSFIRE", "crystal_vinteum"}, null,
+				false, false),
+		LEECH_FOCUS("FOCUS_leech", new AspectList().add(Aspect.HUNGER, 1).add(DarkAspects.WRATH, 1).add(DarkAspects.GLUTTONY, 1),
+				8, 7, 2, new ItemStack(LeechFocus.focus), new String[]{"FOCUSFIRE", "crystal_vinteum", LibResearch.KEY_FOCUS_HEAL}, null,
 				false, false);
 		
 		private ResearchItem item;

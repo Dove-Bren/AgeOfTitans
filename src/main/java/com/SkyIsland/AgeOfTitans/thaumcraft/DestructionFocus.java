@@ -1,5 +1,7 @@
 package com.SkyIsland.AgeOfTitans.thaumcraft;
 
+import java.util.List;
+
 import com.SkyIsland.AgeOfTitans.AgeOfTitans;
 
 import cpw.mods.fml.common.registry.GameRegistry;
@@ -7,6 +9,7 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
@@ -61,6 +64,8 @@ public class DestructionFocus extends ItemFocusBasic {
     		boolean isVacuum = this.isUpgradedWith(wand.getFocusItem(itemstack), vacuum);
     		ItemStack stoneArchtype = new ItemStack(Blocks.stone, 1, OreDictionary.WILDCARD_VALUE);
     		
+    		wand.consumeAllVis(itemstack, player, getVisCost(itemstack), true, false);
+    		
     		//from DestroyWallTask
     		player.playSound(AgeOfTitans.MODID + ":mob.titan.angry", 1.0f, 1.3f);
     		int x, y, z;
@@ -85,7 +90,14 @@ public class DestructionFocus extends ItemFocusBasic {
     				if (isVacuum) {
     					if (!player.inventory.addItemStackToInventory(new ItemStack(block))) {
     						System.out.print(".");
-    						block.dropBlockAsItem(world, (int) player.posX - 1, (int) player.posY + 1, (int) player.posZ - 1, world.getBlockMetadata(x, y, z), 0);
+    						List<ItemStack> drops = block.getDrops(world, x, y, z, world.getBlockMetadata(x, y, z), 0);
+        					if (!drops.isEmpty())
+        					for (ItemStack drop : drops) {
+        						world.spawnEntityInWorld(new EntityItem(
+        								world, player.posX, player.posY + 1.2, player.posZ,
+        								drop
+        								));
+        					}
     					}
     				} else {
     					block.dropBlockAsItem(world, x, y, z, world.getBlockMetadata(x, y, z), 0);

@@ -64,7 +64,7 @@
         "category": "neutral",
         "sounds":
         [
-            "items/titan_ring_eat"
+            "items/titan_wand_eat"
         ]
     },
     "item.vector_sword.fail":
@@ -73,6 +73,14 @@
         "sounds":
         [
             "items/vector_sword_click"
+        ]
+    },
+    "wand.leech.hit":
+    {
+        "category": "neutral",
+        "sounds":
+        [
+            "items/focus_leech_hit"
         ]
     }
 }

@@ -13,6 +13,7 @@ import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.MovingObjectPosition;
@@ -80,7 +81,7 @@ public class DestructionFocus extends ItemFocusBasic {
     		for (y = (int) (player.posY); y < maxy + 1; y++)
     		for (z = ((int) player.posZ) - radius; z < maxz; z++) {
     			Block block = world.getBlock(x, y, z);
-    			if(block != Blocks.bedrock)
+    			if(block != Blocks.bedrock && block != Blocks.air)
     			if (player.canPlayerEdit(x, y, z, 0, new ItemStack(Items.diamond_pickaxe))) {
     				
     				//if isStone, just do stone and derivatives
@@ -89,7 +90,6 @@ public class DestructionFocus extends ItemFocusBasic {
     				
     				if (isVacuum) {
     					if (!player.inventory.addItemStackToInventory(new ItemStack(block))) {
-    						System.out.print(".");
     						List<ItemStack> drops = block.getDrops(world, x, y, z, world.getBlockMetadata(x, y, z), 0);
         					if (!drops.isEmpty())
         					for (ItemStack drop : drops) {
@@ -97,6 +97,18 @@ public class DestructionFocus extends ItemFocusBasic {
         								world, player.posX, player.posY + 1.2, player.posZ,
         								drop
         								));
+        					}
+        					else {
+        						ItemStack drop;
+        						Item dropItem = block.getItemDropped(world.getBlockMetadata(x, y, z), AgeOfTitans.random, 0);
+        						if (dropItem != null) {
+
+        							drop = new ItemStack(dropItem);
+            						world.spawnEntityInWorld(new EntityItem(
+            								world, player.posX, player.posY + 1.2, player.posZ,
+            								drop
+            								));
+        						}
         					}
     					}
     				} else {

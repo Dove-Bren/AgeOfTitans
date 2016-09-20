@@ -14,12 +14,14 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
 import thaumcraft.api.aspects.Aspect;
 import thaumcraft.api.aspects.AspectList;
 import thaumcraft.api.wands.FocusUpgradeType;
 import thaumcraft.api.wands.ItemFocusBasic;
 import thaumcraft.common.items.wands.ItemWandCasting;
+import thaumcraft.common.lib.utils.EntityUtils;
 
 /**
  * Majority of the code adapted from Forbidden Magic's ItemFocusBlink
@@ -41,6 +43,7 @@ public class LeechFocus extends ItemFocusBasic {
     private static final float healthPerHealth = 0.25f;
     private static final int baseDamage = 4;
     private static final int damagePerPotency = 2;
+    private static final float range = 25.0f;
     
     public LeechFocus(String unlocalizedName){
         super();
@@ -52,7 +55,11 @@ public class LeechFocus extends ItemFocusBasic {
 
     @Override
     public ItemStack onFocusRightClick(ItemStack itemstack, World world, EntityPlayer player, MovingObjectPosition wut) {
-        
+//    	if (!world.isRemote) {
+//    		return itemstack;
+//    	}
+    	
+    	
     	ItemWandCasting wand = (ItemWandCasting)itemstack.getItem();
     	if(wand.consumeAllVis(itemstack, player, getVisCost(itemstack), false, false)) {
     		//have enough vis
@@ -62,15 +69,22 @@ public class LeechFocus extends ItemFocusBasic {
 //                    (player.prevPosZ + (player.posZ - player.prevPosZ)),
 //                    (player.prevRotationYaw + (player.rotationYaw - player.prevRotationYaw)),
 //                    (player.prevRotationPitch + (player.rotationPitch - player.prevRotationPitch)), false, 128.0);
-            MovingObjectPosition mop = wut;
-            if (mop != null && mop.typeOfHit == MovingObjectPosition.MovingObjectType.ENTITY) {
-            	System.out.println("hit!");
-            	if (!(mop.entityHit instanceof EntityLiving)) {
+//    		Vec3 ppos = Vec3.createVectorHelper(player.posX, player.posY + 1.62f, player.posZ);
+//    		Vec3 look = player.getLook(1.0F);
+//    		look = Vec3.createVectorHelper(look.xCoord * range, look.yCoord * range, look.zCoord * range);
+//    		
+//            MovingObjectPosition mop = world.rayTraceBlocks(ppos, look);
+    		//MovingObjectPosition mop = raytraceFromEyes(player, range);
+    		//MovingObjectPosition mop = player.rayTrace(range, 1.0f);
+    		Entity hit = EntityUtils.getPointedEntity(world, player, 0.1, range, 0.1f);
+            //if (mop != null && mop.typeOfHit == MovingObjectPosition.MovingObjectType.ENTITY) {
+    		if (hit != null) {
+            	if (!(hit instanceof EntityLiving)) {
             		return itemstack;
             	}
             	
             	wand.consumeAllVis(itemstack, player, getVisCost(itemstack), true, false);
-            	EntityLiving entity = (EntityLiving) mop.entityHit;
+            	EntityLiving entity = (EntityLiving) hit;
             	
             	if (!world.isRemote) {
             		spawnEffect("instantSpell", 4, world, entity);
@@ -171,6 +185,12 @@ public class LeechFocus extends ItemFocusBasic {
 		          motionY, 
 		          motionZ);
 		}
+	}
+	
+	public static MovingObjectPosition raytraceFromEyes(Entity entity, float length) {
+		Vec3 startPos = Vec3.createVectorHelper(entity.posX, entity.posY + entity.getEyeHeight(), entity.posZ);
+        Vec3 endPos = startPos.addVector(entity.getLookVec().xCoord * length, entity.getLookVec().yCoord * length, entity.getLookVec().zCoord * length);
+        return entity.worldObj.rayTraceBlocks(startPos, endPos);
 	}
 	
 }

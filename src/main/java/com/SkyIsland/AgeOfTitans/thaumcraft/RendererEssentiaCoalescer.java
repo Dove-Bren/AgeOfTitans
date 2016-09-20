@@ -38,7 +38,6 @@ public class RendererEssentiaCoalescer extends TileEntitySpecialRenderer {
 		GL11.glPushMatrix();
 		TileEntityEssentiaCoalescer tile = (TileEntityEssentiaCoalescer) tileentity;
 		ForgeDirection dir = tile.getOutputDirection();
-		System.out.println(dir.name());
 		
 		if (dir != ForgeDirection.EAST) {
 			float direction, xrot, yrot, zrot;

@@ -46,7 +46,6 @@ public class EssentiaCoalescer extends BlockContainer {
 
 	@Override
 	public TileEntity createNewTileEntity(World p_149915_1_, int meta) {
-		System.out.println("meta: " + meta + "     dir: " + ForgeDirection.getOrientation(meta).name());
 		return new TileEntityEssentiaCoalescer(ForgeDirection.getOrientation(meta));
 	}
 	
@@ -54,7 +53,6 @@ public class EssentiaCoalescer extends BlockContainer {
 	public void onBlockPlacedBy(World world, int x, int y, int z, EntityLivingBase placer, ItemStack itemstack) {
 		//point towards the player
 		int dir = BlockPistonBase.determineOrientation(world, x, y, z, placer);
-		System.out.println(dir);
 		world.setBlockMetadataWithNotify(x, y, z, dir, 3);
 		((TileEntityEssentiaCoalescer) world.getTileEntity(x, y, z)).setDirection(ForgeDirection.getOrientation(dir));
 	}

@@ -29,37 +29,44 @@ public class TileEntityEssentiaCoalescer extends TileThaumcraft implements IEsse
 	
 	@Override
 	public boolean isConnectable(ForgeDirection face) {
+		System.out.println("isConnect: " + face + " <==> " + outputDirection);
 		return face == outputDirection;
 	}
 
 	@Override
 	public boolean canInputFrom(ForgeDirection face) {
+		System.out.println("canInput: " + face);
 		return false;
 	}
 
 	@Override
 	public boolean canOutputTo(ForgeDirection face) {
+		System.out.println("canOutput: " + face);
 		return face == outputDirection;
 	}
 
 	@Override
 	public void setSuction(Aspect aspect, int amount) {
+		System.out.println("setSuction: " + aspect + " : " + amount);
 		this.suction = amount;
 		this.suctionType = aspect;
 	}
 
 	@Override
 	public Aspect getSuctionType(ForgeDirection face) {
+		System.out.println("getsType: " + face);
 		return suctionType;
 	}
 
 	@Override
 	public int getSuctionAmount(ForgeDirection face) {
+		System.out.println("getsAmount: " + face);
 		return suction;
 	}
 
 	@Override
 	public int takeEssentia(Aspect aspect, int amount, ForgeDirection face) {
+		System.out.println("takeEssentia: " + aspect + " : " + amount + " : " + face);
 		if (face != outputDirection)
 			return 0;
 		
@@ -69,11 +76,13 @@ public class TileEntityEssentiaCoalescer extends TileThaumcraft implements IEsse
 
 	@Override
 	public int addEssentia(Aspect aspect, int amount, ForgeDirection face) {
+		System.out.println("addEssentia: " + aspect + " : " + amount + " : " + face);
 		return 0;
 	}
 
 	@Override
 	public Aspect getEssentiaType(ForgeDirection face) {
+		System.out.println("getEssentiaType: " + face);
 		if (face != outputDirection)
 			return null;
 		
@@ -82,6 +91,7 @@ public class TileEntityEssentiaCoalescer extends TileThaumcraft implements IEsse
 
 	@Override
 	public int getEssentiaAmount(ForgeDirection face) {
+		System.out.println("getEssentiaAmount: " + face);
 		if (face != outputDirection)
 			return 0;
 		

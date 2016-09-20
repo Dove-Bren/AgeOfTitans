@@ -49,6 +49,8 @@ public class ThaumcraftBridge {
 		new CrystalVinteumCap("crystal_vinteum_cap");
 		new DestructionFocus("destruction_focus");
 		new LeechFocus("leech_focus");
+		
+		EssentiaCoalescer.preInit();
 	}
 
 	public static void postInit() {

@@ -135,7 +135,7 @@ public class Titan extends EntityIronGolem implements IEntityMultiPart {
 	}
 	
 	@Override
-    public boolean attackEntityAsMob(Entity p_70652_1_)
+    public boolean attackEntityAsMob(Entity entityTarget)
     {
 		if (attackTimer > 0) {
 			return false;
@@ -143,7 +143,14 @@ public class Titan extends EntityIronGolem implements IEntityMultiPart {
 		
         this.attackTimer = attackCooldown;
         this.worldObj.setEntityState(this, (byte)4);
-        boolean flag = p_70652_1_.attackEntityFrom(DamageSource.causeMobDamage(this), (float)(15));
+        boolean flag = entityTarget.attackEntityFrom(DamageSource.causeMobDamage(this), (float)(15));
+        
+        entityTarget.addVelocity((double)(-MathHelper.sin(rotationYaw * 
+                (float)Math.PI / 180.0F) * 0.5F), 
+                 0.1D, (double)(MathHelper.cos(rotationYaw * 
+                (float)Math.PI / 180.0F) * 0.5F));
+          motionX *= 0.9D;
+          motionZ *= 0.9D;
         
         this.playSound(AgeOfTitans.MODID + ":mob.titan.attack", 1.0F, 1.0F);
         return flag;

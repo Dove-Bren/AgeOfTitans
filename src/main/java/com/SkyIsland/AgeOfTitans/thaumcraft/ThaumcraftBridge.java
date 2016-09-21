@@ -209,6 +209,19 @@ public class ThaumcraftBridge {
 		pages.add(new ResearchPage(new ResourceLocation(AgeOfTitans.MODID + ":textures/gui/coalescer_book.png"), "Coalescer Construct"));
 		
 		Research.ESSENTIA_COALESCER.getItem().setPages(pages.toArray(new ResearchPage[0]));
+		
+		ItemStack crystal = new ItemStack(CrystalVinteum.item);
+		recipe = ThaumcraftApi.addInfusionCraftingRecipe("FOCUS_titan", new ItemStack(TransformFocus.focus), 100,
+				new AspectList().add(Aspect.ORDER, 32).add(Aspect.EXCHANGE, 24).add(Aspect.WATER, 32),
+				new ItemStack(AgeOfTitans.titanHeart),
+				new ItemStack[]{diamond, crystal, crystal, new ItemStack(Items.ender_pearl), crystal, crystal});
+		
+		pages = new LinkedList<ResearchPage>();
+		
+		pages.add(new ResearchPage("You've done it! Through careful, intensive study, you've finally had a breakthrough! The Titans' wrath certainly has magical origins, and almost trivially so. Your studies have revealed a strange and constant stream of magical energy affecting the Titans, causing their incredible rage. Your discovery doesn't stop there, however. You've found that simply staunching the stream of negative energies not only stops the Titans from attacking players... it makes them attack other Titans!"));
+		pages.add(new ResearchPage(recipe));
+		
+		Research.TITAN_FOCUS.getItem().setPages(pages.toArray(new ResearchPage[0]));
 	}
 	
 	private static final void registerResearch() {
@@ -239,6 +252,9 @@ public class ThaumcraftBridge {
 				false, false),
 		LEECH_FOCUS("FOCUS_leech", new AspectList().add(Aspect.HUNGER, 1).add(DarkAspects.WRATH, 1).add(DarkAspects.GLUTTONY, 1),
 				3, 6, 2, new ItemStack(LeechFocus.focus), new String[]{"FOCUSFIRE", "crystal_vinteum", LibResearch.KEY_FOCUS_HEAL}, null,
+				false, false),
+		TITAN_FOCUS("FOCUS_titan", new AspectList().add(Aspect.MAN, 1).add(DarkAspects.WRATH, 1).add(Aspect.ENTROPY, 1).add(Aspect.ORDER, 1),
+				4, 6, 3, new ItemStack(TransformFocus.focus), new String[]{"FOCUSFIRE", "crystal_vinteum", "FOCUS_leech", "FOCUS_destruction"}, new ItemStack[]{new ItemStack(AgeOfTitans.titanHeart)},
 				false, false),
 		ESSENTIA_COALESCER("essentia_coalescer", new AspectList().add(Aspect.ELDRITCH, 1).add(Aspect.DARKNESS, 1).add(Aspect.TRAVEL, 1).add(Aspect.MAGIC, 1).add(Aspect.WATER, 1),
 				6, 5, 3, new ItemStack(EssentiaCoalescer.block), new String[]{"THAUMATORIUM", "MIRRORESSENTIA", "crystal_vinteum", "VOIDMETAL"}, null,

@@ -4,12 +4,14 @@ import com.SkyIsland.AgeOfTitans.AgeOfTitans;
 import com.SkyIsland.AgeOfTitans.mobs.FleshTitan;
 import com.SkyIsland.AgeOfTitans.mobs.FriendlyTitan;
 import com.SkyIsland.AgeOfTitans.mobs.Titan;
+import com.SkyIsland.AgeOfTitans.mobs.Titan.TitanPart;
 
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.IEntityMultiPart;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
@@ -69,6 +71,14 @@ public class TransformFocus extends ItemFocusBasic {
     	if(wand.consumeAllVis(itemstack, player, getVisCost(itemstack), false, false)) {
     		Entity hit = EntityUtils.getPointedEntity(world, player, 0.1, range, 0.1f);
     		if (hit != null) {
+    			if (hit instanceof TitanPart) {
+    				IEntityMultiPart parent = ((TitanPart) hit).entityDragonObj;
+    				if (!(parent instanceof Titan)) {
+    					System.out.println("parent not a titan: " + parent);
+    					return itemstack;
+    				}
+    				hit = (Titan) parent;
+    			}
             	if (!(hit instanceof Titan)) {
             		return itemstack;
             	}

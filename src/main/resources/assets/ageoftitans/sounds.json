@@ -82,5 +82,13 @@
         [
             "items/focus_leech_hit"
         ]
+    },
+    "wand.titan.hit":
+    {
+        "category": "neutral",
+        "sounds":
+        [
+            "items/focus_titan_hit"
+        ]
     }
 }

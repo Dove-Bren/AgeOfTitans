@@ -151,6 +151,11 @@ public class Titan extends EntityIronGolem implements IEntityMultiPart {
                 (float)Math.PI / 180.0F) * 0.5F));
           motionX *= 0.9D;
           motionZ *= 0.9D;
+          
+          if (entityTarget instanceof Titan) {
+        	  motionX *= 2.0;
+        	  motionZ *= 2.0;
+          }
         
         this.playSound(AgeOfTitans.MODID + ":mob.titan.attack", 1.0F, 1.0F);
         return flag;

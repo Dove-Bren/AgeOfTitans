@@ -52,6 +52,11 @@ public class ThaumcraftBridge {
 		new LeechFocus("leech_focus");
 		new TransformFocus("titan_focus");
 		
+		titanrod = new WandRod("titan_wand", TitanWandCore.capacity, new ItemStack(TitanWandCore.wand),
+				  10, new TitanWandCore.RodUpdated(), new ResourceLocation(AgeOfTitans.MODID + ":textures/models/titan_wand_core.png"));
+		  vinteumcap = new WandCap("crystal_vinteum_cap", CrystalVinteumCap.visRate, new ItemStack(CrystalVinteumCap.cap), 1);
+	      vinteumcap.setTexture(new ResourceLocation(AgeOfTitans.MODID + ":textures/models/cap_crystal_vinteum.png"));
+		
 		EssentiaCoalescer.preInit();
 	}
 
@@ -61,10 +66,10 @@ public class ThaumcraftBridge {
 		  registerAspects();
 		  registerResearch();
 		  
-		  titanrod = new WandRod("titan_wand", TitanWandCore.capacity, new ItemStack(TitanWandCore.wand),
-				  10, new TitanWandCore.RodUpdated(), new ResourceLocation(AgeOfTitans.MODID + ":textures/models/titan_wand_core.png"));
-		  vinteumcap = new WandCap("CAP_crystal_vinteum", CrystalVinteumCap.visRate, new ItemStack(CrystalVinteumCap.cap), 1);
-	      vinteumcap.setTexture(new ResourceLocation(AgeOfTitans.MODID + ":textures/models/cap_crystal_vinteum.png"));
+//		  titanrod = new WandRod("titan_wand", TitanWandCore.capacity, new ItemStack(TitanWandCore.wand),
+//				  10, new TitanWandCore.RodUpdated(), new ResourceLocation(AgeOfTitans.MODID + ":textures/models/titan_wand_core.png"));
+//		  vinteumcap = new WandCap("CAP_crystal_vinteum", CrystalVinteumCap.visRate, new ItemStack(CrystalVinteumCap.cap), 1);
+//	      vinteumcap.setTexture(new ResourceLocation(AgeOfTitans.MODID + ":textures/models/cap_crystal_vinteum.png"));
 		  
 		  //WandCap WAND_CAP_GOLD = new WandCap("gold", 1f, new ItemStack(ConfigItems.itemWandCap,1,1),3);
 		  registerRecipes();

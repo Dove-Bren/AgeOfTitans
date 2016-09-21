@@ -23,7 +23,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import net.minecraftforge.event.entity.living.LivingDropsEvent;
 
-public class FleshTitan extends Titan implements IBossDisplayData {
+public class FleshTitan extends NormalTitan implements IBossDisplayData {
 	
 	public static class DropHandler {
 		

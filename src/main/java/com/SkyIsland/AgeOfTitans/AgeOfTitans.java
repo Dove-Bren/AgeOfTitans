@@ -18,6 +18,7 @@ import com.SkyIsland.AgeOfTitans.items.Vectorium;
 import com.SkyIsland.AgeOfTitans.items.VinteumBlend;
 import com.SkyIsland.AgeOfTitans.mobs.FleshTitan;
 import com.SkyIsland.AgeOfTitans.mobs.FriendlyTitan;
+import com.SkyIsland.AgeOfTitans.mobs.NormalTitan;
 import com.SkyIsland.AgeOfTitans.mobs.Titan;
 import com.SkyIsland.AgeOfTitans.thaumcraft.TitanWandCore;
 
@@ -81,7 +82,7 @@ public class AgeOfTitans //Start the class Declaration
     @EventHandler
     public void preInit(FMLPreInitializationEvent event)
     {
-    	registerModEntity(Titan.class, "Titan");
+    	registerModEntity(NormalTitan.class, "Titan");
     	registerModEntity(FleshTitan.class, "FleshTitan");
     	registerModEntity(FriendlyTitan.class, "FriendlyTitan");
     	registerModEntity(Titan.TitanPart.class, "TitanPart");
@@ -186,7 +187,7 @@ public class AgeOfTitans //Start the class Declaration
     		biomes = ArrayUtils.addAll(biomes, BiomeDictionary.getBiomesForType(Type.SANDY));
     		biomes = ArrayUtils.addAll(biomes, BiomeDictionary.getBiomesForType(Type.SPOOKY));
     		biomes = ArrayUtils.addAll(biomes, BiomeDictionary.getBiomesForType(Type.SPARSE));
-    		EntityRegistry.addSpawn(Titan.class, 7, 1, 3, EnumCreatureType.monster, biomes);
+    		EntityRegistry.addSpawn(NormalTitan.class, 7, 1, 3, EnumCreatureType.monster, biomes);
     		EntityRegistry.addSpawn(FleshTitan.class, 1, 1, 3, EnumCreatureType.monster, biomes);
     	    //EntityRegistry.addSpawn(parEntityClass, 1, 1, 3, EnumCreatureType.monster, BiomeGenBase.plains);
     	}

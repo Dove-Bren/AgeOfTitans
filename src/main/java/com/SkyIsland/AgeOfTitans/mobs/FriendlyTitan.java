@@ -78,7 +78,7 @@ public class FriendlyTitan extends Titan implements IBossDisplayData {
 		if (worldObj.isRemote)
 			return;
 		
-		Titan titan = new Titan(worldObj);
+		Titan titan = new NormalTitan(worldObj);
 		titan.setPosition(posX, posY, posZ);
 		titan.rotationYaw = this.rotationYaw;
 		titan.rotationYawHead = this.rotationYawHead;
@@ -96,13 +96,13 @@ public class FriendlyTitan extends Titan implements IBossDisplayData {
 		getNavigator().setAvoidsWater(true);
 		this.getNavigator().setBreakDoors(true);
 		this.tasks.addTask(0, new EntityAISwimming(this));
-		this.tasks.addTask(2, new EntityAIAttackOnCollide(this, Titan.class, 1.0D, false));
+		this.tasks.addTask(2, new EntityAIAttackOnCollide(this, NormalTitan.class, 1.0D, false));
 		this.tasks.addTask(5, new EntityAIMoveTowardsRestriction(this, 1.0D));
 		this.tasks.addTask(7, new EntityAIWander(this, 1.0D));
-		this.tasks.addTask(8, new EntityAIWatchClosest(this, Titan.class, 20.0F));
+		this.tasks.addTask(8, new EntityAIWatchClosest(this, NormalTitan.class, 20.0F));
 		this.tasks.addTask(8, new EntityAILookIdle(this));
 		this.targetTasks.addTask(1, new EntityAIHurtByTarget(this, true));
-		this.targetTasks.addTask(2, new EntityAINearestAttackableTarget(this, Titan.class, 0, true));
+		this.targetTasks.addTask(2, new EntityAINearestAttackableTarget(this, NormalTitan.class, 0, true));
 	}
 	
 	@Override

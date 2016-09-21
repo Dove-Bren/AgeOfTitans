@@ -16,9 +16,15 @@ import net.minecraft.world.World;
 
 public class FriendlyTitan extends Titan implements IBossDisplayData {
 	
+	protected int timer;
+	
+	protected boolean dieOnTimer;
+	
 	public FriendlyTitan(World world) {
 		super(world);
 		this.isDestroyer = false;
+		this.timer = -1;
+		dieOnTimer = false;
 		
 		setupAI();
 		
@@ -34,6 +40,51 @@ public class FriendlyTitan extends Titan implements IBossDisplayData {
 			texture = new ResourceLocation(AgeOfTitans.MODID + ":textures/entity/titan/titan_friendly3.png");
 			break;
 		}
+	}
+	
+	/**
+	 * Sets how long until this friendly titan turns back into a regular titan
+	 * @param time
+	 */
+	public void setTimer(int time) {
+		this.timer = time;
+	}
+	
+	public void setDieOnTimer() {
+		dieOnTimer = true;
+	}
+	
+	@Override
+	public void onLivingUpdate() {
+		if (timer > -1) {
+			//gonna turn back after some time
+			timer--;
+			if (timer == 0) {
+				if (dieOnTimer) {
+					if (!worldObj.isRemote)
+					worldObj.removeEntity(this);
+				} else
+					transform();
+			}
+		}
+	}
+	
+	/**
+	 * Takes this entity, kills it, and adds back an aggressive one
+	 */
+	private void transform() {
+		if (worldObj.isRemote)
+			return;
+		
+		Titan titan = new Titan(worldObj);
+		titan.setPosition(posX, posY, posZ);
+		titan.rotationYaw = this.rotationYaw;
+		titan.rotationYawHead = this.rotationYawHead;
+		titan.rotationPitch = this.rotationPitch;
+		titan.setHealth(this.getHealth());
+		
+		worldObj.removeEntity(this);
+		worldObj.spawnEntityInWorld(titan);
 	}
 	
 	@Override

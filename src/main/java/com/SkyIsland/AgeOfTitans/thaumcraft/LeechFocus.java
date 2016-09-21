@@ -149,7 +149,7 @@ public class LeechFocus extends ItemFocusBasic {
             case 2:
             	return new FocusUpgradeType[] {FocusUpgradeType.frugal, FocusUpgradeType.potency};
             case 3:
-                return new FocusUpgradeType[] {vampire, FocusUpgradeType.enlarge, FocusUpgradeType.potency};
+                return new FocusUpgradeType[] {vampire, FocusUpgradeType.frugal, FocusUpgradeType.potency};
             case 4:
             case 5:
             	return new FocusUpgradeType[] {FocusUpgradeType.frugal, FocusUpgradeType.potency};

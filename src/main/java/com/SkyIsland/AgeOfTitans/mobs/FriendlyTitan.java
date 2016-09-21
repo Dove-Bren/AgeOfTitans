@@ -67,6 +67,8 @@ public class FriendlyTitan extends Titan implements IBossDisplayData {
 					transform();
 			}
 		}
+		
+		super.onLivingUpdate();
 	}
 	
 	/**

@@ -84,10 +84,6 @@ public class EssentiaCoalescer extends BlockContainer {
     	if (event.isCanceled())
     		return;
     	
-    	System.out.println("break2");
-    	if (event.block != this)
-    		return;
-    	
     	System.out.println("break3");
     	TileEntity te = event.world.getTileEntity(event.x, event.y, event.z);
     	if (!(te instanceof TileEntityEssentiaCoalescer))

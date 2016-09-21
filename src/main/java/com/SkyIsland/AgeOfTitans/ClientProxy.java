@@ -1,6 +1,7 @@
 package com.SkyIsland.AgeOfTitans;
 
 import com.SkyIsland.AgeOfTitans.mobs.FleshTitan;
+import com.SkyIsland.AgeOfTitans.mobs.FriendlyTitan;
 import com.SkyIsland.AgeOfTitans.mobs.Titan;
 import com.SkyIsland.AgeOfTitans.thaumcraft.EssentiaCoalescer;
 
@@ -18,6 +19,7 @@ public class ClientProxy extends CommonProxy {
 	    // register my Items, Blocks, Entities, etc
 		RenderingRegistry.registerEntityRenderingHandler(Titan.class, new Titan.TitanRenderer(new ModelIronGolem(), 1.5f));
 		RenderingRegistry.registerEntityRenderingHandler(FleshTitan.class, new Titan.TitanRenderer(new ModelIronGolem(), 1.5f));
+		RenderingRegistry.registerEntityRenderingHandler(FriendlyTitan.class, new Titan.TitanRenderer(new ModelIronGolem(), 1.5f));
 		EssentiaCoalescer.clientInit();
 	}
 

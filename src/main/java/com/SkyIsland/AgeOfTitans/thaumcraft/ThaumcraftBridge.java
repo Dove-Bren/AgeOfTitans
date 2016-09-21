@@ -124,6 +124,8 @@ public class ThaumcraftBridge {
 				  (new AspectList()).add(DarkAspects.WRATH, 4).add(Aspect.MINE, 2));
 		  ThaumcraftApi.registerObjectTag(new ItemStack(LeechFocus.focus), 
 				  (new AspectList()).add(DarkAspects.GLUTTONY, 4).add(Aspect.HUNGER, 8));
+		  ThaumcraftApi.registerObjectTag(new ItemStack(EssentiaCoalescer.block), 
+				  (new AspectList()).add(Aspect.MAGIC, 4).add(Aspect.TRAVEL, 5).add(Aspect.ELDRITCH, 8));
 		  
 	}
 	

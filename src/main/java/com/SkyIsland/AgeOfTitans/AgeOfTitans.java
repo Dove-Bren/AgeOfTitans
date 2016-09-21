@@ -17,6 +17,7 @@ import com.SkyIsland.AgeOfTitans.items.Titarillium;
 import com.SkyIsland.AgeOfTitans.items.Vectorium;
 import com.SkyIsland.AgeOfTitans.items.VinteumBlend;
 import com.SkyIsland.AgeOfTitans.mobs.FleshTitan;
+import com.SkyIsland.AgeOfTitans.mobs.FriendlyTitan;
 import com.SkyIsland.AgeOfTitans.mobs.Titan;
 import com.SkyIsland.AgeOfTitans.thaumcraft.TitanWandCore;
 
@@ -82,6 +83,7 @@ public class AgeOfTitans //Start the class Declaration
     {
     	registerModEntity(Titan.class, "Titan");
     	registerModEntity(FleshTitan.class, "FleshTitan");
+    	registerModEntity(FriendlyTitan.class, "FriendlyTitan");
     	registerModEntity(Titan.TitanPart.class, "TitanPart");
     	
     	AgeOfTitans.creativeTab = new CreativeTabs("ageoftitans"){

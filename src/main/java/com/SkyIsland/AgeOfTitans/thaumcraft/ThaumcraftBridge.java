@@ -31,6 +31,7 @@ import thaumcraft.api.research.ResearchItem;
 import thaumcraft.api.research.ResearchPage;
 import thaumcraft.api.wands.WandCap;
 import thaumcraft.api.wands.WandRod;
+import thaumcraft.common.config.ConfigBlocks;
 import thaumcraft.common.config.ConfigItems;
 import thaumic.tinkerer.common.lib.LibResearch;
 
@@ -187,6 +188,24 @@ public class ThaumcraftBridge {
 		pages.add(new ResearchPage("Magic exists all around you. Just look at those huge Titans. Certainly, that much rage and wrath couldn't exist if there wasn't another plane of energy to feed it. They don't even seem to eat cows and stuff. You're not sure what, but you know there must be magic involved. The only question is... where does it come from?"));
 		
 		Research.TITANS.getItem().setPages(pages.toArray(new ResearchPage[0]));
+		ItemStack voidMetal = new ItemStack(ConfigItems.itemResource, 1, 16);
+		ItemStack diamond = new ItemStack(Items.diamond);
+		ItemStack crucible = new ItemStack(ConfigBlocks.blockMetalDevice, 1, 0);
+		
+		recipe = ThaumcraftApi.addInfusionCraftingRecipe("essentia_coalescer", new ItemStack(EssentiaCoalescer.block), 100,
+				new AspectList().add(Aspect.ELDRITCH, 64).add(Aspect.TRAVEL, 32).add(Aspect.MAGIC, 32).add(Aspect.WATER, 32),
+				new ItemStack(ConfigBlocks.blockMirror, 1, 6),
+				new ItemStack[]{diamond, voidMetal, voidMetal, crucible, voidMetal, voidMetal});
+		
+		pages = new LinkedList<ResearchPage>();
+		pages.add(new ResearchPage("You've seen the magic of essentia mirrors, and no longer need to move jars back and forth for simple infusions. The mirrors work exceptionally for things that draw essentia, like infusions, but your alchemy setup is still somewhat primative. Your recent discovery of void metal, however, might have changed this for good. You've already noted the exceptional capabilities of the metal -- ever expansive, ever repairing. The metal is also somehow tied to a place that is not the same you live on. While the idea was a stretch, you began"));
+		pages.add(new ResearchPage("to wonder if this plane and the place over which essentia is trasferred via mirrors was not one and the same. This idea proved to be quite correct! Following the discovery, you searched for some way to make use of the connection... and after much tinkering, you've created what you've called the Essentia Coalescer. While not exactly what you were after, the Essentia Coalescer allows you to draw essentia through the plane towards itself. What makes the invention worthwhile, however, is the addition of a condensing agent that allows"));
+		pages.add(new ResearchPage("the drawn essentia to again settle into the slurry form you know as Essentia. You've even hooked up a pipe apparatus to connect to all your gadgets and gizmos!"));
+		pages.add(new ResearchPage(recipe));
+		pages.add(new ResearchPage("The Essentia Coalescer must be placed on top of a pipe in order for the coalescing to work. In addition, the block must be surrounded by some redstone and glass in a specific pattern to help encourage the coalescing of the essentia. Four pillars should surround the Coalescer "));
+		pages.add(new ResearchPage(new ResourceLocation(AgeOfTitans.MODID + ":textures/gui/coalescer_book.png"), "Coalescer Construct"));
+		
+		Research.ESSENTIA_COALESCER.getItem().setPages(pages.toArray(new ResearchPage[0]));
 	}
 	
 	private static final void registerResearch() {
@@ -199,25 +218,34 @@ public class ThaumcraftBridge {
 	}
 	
 	private static enum Research {
-		TITANS("basic_titan", null, 5, 5, 1, new ItemStack(AgeOfTitans.titanHeart),
+		TITANS("basic_titan", null, 4, 4, 1, new ItemStack(AgeOfTitans.titanHeart),
 				null, null, true, false),
 		TITAN_ROD("ROD_titan_wand", new AspectList().add(DarkAspects.WRATH, 1)
 										.add(Aspect.FLESH, 1)
 										.add(Aspect.MAN, 1),
-			4, 4, 1, new ItemStack(TitanWandCore.wand), new String[]{"basic_titan", "ROD_primal_staff"}, new ItemStack[]{new ItemStack(AgeOfTitans.titanHeart)},
+			1, 1, 1, new ItemStack(TitanWandCore.wand), new String[]{"basic_titan", "ROD_primal_staff"}, new ItemStack[]{new ItemStack(AgeOfTitans.titanHeart)},
 			true, false),
 		CRYSTAL_VINTEUM("crystal_vinteum", new AspectList().add(Aspect.AURA, 4).add(Aspect.MAGIC, 2).add(Aspect.CRYSTAL, 5),
-				6, 6, 1, new ItemStack(CrystalVinteum.item),
+				2, 5, 1, new ItemStack(CrystalVinteum.item),
 				new String[]{"basic_titan"}, new ItemStack[]{new ItemStack(ItemsCommonProxy.itemOre, 1, ItemOre.META_VINTEUMDUST), new ItemStack(BlocksCommonProxy.liquidEssence)}, true, true),
 		VINTEUM_CAP("CAP_crystal_vinteum", new AspectList().add(Aspect.METAL, 4).add(Aspect.CRYSTAL, 3),
-				6, 8, 2, new ItemStack(CrystalVinteumCap.cap), new String[]{"CAP_gold", "crystal_vinteum"}, new ItemStack[]{new ItemStack(CrystalVinteum.item)},
+				1, 3, 2, new ItemStack(CrystalVinteumCap.cap), new String[]{"CAP_gold", "crystal_vinteum"}, new ItemStack[]{new ItemStack(CrystalVinteum.item)},
 				false, true),
 		DESTRUCTION_FOCUS("FOCUS_destruction", new AspectList().add(Aspect.MINE, 1).add(DarkAspects.WRATH, 1).add(Aspect.GREED, 1),
-				8, 6, 2, new ItemStack(DestructionFocus.focus), new String[]{"FOCUSFIRE", "crystal_vinteum"}, null,
+				2, 6, 2, new ItemStack(DestructionFocus.focus), new String[]{"FOCUSFIRE", "crystal_vinteum"}, null,
 				false, false),
 		LEECH_FOCUS("FOCUS_leech", new AspectList().add(Aspect.HUNGER, 1).add(DarkAspects.WRATH, 1).add(DarkAspects.GLUTTONY, 1),
-				8, 7, 2, new ItemStack(LeechFocus.focus), new String[]{"FOCUSFIRE", "crystal_vinteum", LibResearch.KEY_FOCUS_HEAL}, null,
-				false, false);
+				3, 6, 2, new ItemStack(LeechFocus.focus), new String[]{"FOCUSFIRE", "crystal_vinteum", LibResearch.KEY_FOCUS_HEAL}, null,
+				false, false),
+		ESSENTIA_COALESCER("essentia_coalescer", new AspectList().add(Aspect.ELDRITCH, 1).add(Aspect.DARKNESS, 1).add(Aspect.TRAVEL, 1).add(Aspect.MAGIC, 1).add(Aspect.WATER, 1),
+				6, 5, 3, new ItemStack(EssentiaCoalescer.block), new String[]{"THAUMATORIUM", "MIRRORESSENTIA", "crystal_vinteum", "VOIDMETAL"}, null,
+				true, false);
+		
+		/**
+		 * THAUMATORIUM
+		 * MIRRORESSENTIA
+		 * crystal_vinteum
+		 */
 		
 		private ResearchItem item;
 		

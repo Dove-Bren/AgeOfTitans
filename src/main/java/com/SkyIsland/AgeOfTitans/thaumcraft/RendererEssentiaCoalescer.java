@@ -9,7 +9,6 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.AdvancedModelLoader;
 import net.minecraftforge.client.model.IModelCustom;
-import net.minecraftforge.common.util.ForgeDirection;
 
 public class RendererEssentiaCoalescer extends TileEntitySpecialRenderer {
 
@@ -30,47 +29,47 @@ public class RendererEssentiaCoalescer extends TileEntitySpecialRenderer {
 	
 		GL11.glPushMatrix();
 		
-		GL11.glTranslatef((float) x + 0.5F, (float) y + 0.5F, (float) z + 0.5F);
+		GL11.glTranslatef((float) x + 0.5F, (float) y, (float) z + 0.5F);
 		this.bindTexture(texture);
 		
+//		float SFACTOR = 0.5f;
+//		GL11.glScalef(SFACTOR, SFACTOR, SFACTOR);
 		//GL11.glRotatef(180F, 0.0F, 1.0F, 0.0F);
 		
 		GL11.glPushMatrix();
-		TileEntityEssentiaCoalescer tile = (TileEntityEssentiaCoalescer) tileentity;
-		ForgeDirection dir = tile.getOutputDirection();
-		
-		if (dir != ForgeDirection.EAST) {
-			float direction, xrot, yrot, zrot;
-			direction = xrot = yrot = zrot = 0f;
-			
-			switch(dir) {
-			case NORTH:
-				direction = 90f;
-				yrot = 1.0f;
-				break;
-			case SOUTH:
-				direction = -90f;
-				yrot = 1.0f;
-				break;
-			case WEST:
-				direction = 180f;
-				yrot = 180.0f;
-				break;
-			case DOWN:
-				direction = -90f;
-				zrot = 1.0f;
-				break;
-			case UP:
-			default:
-				direction = 90f;
-				zrot = 1.0f;
-				break;
-			}
-			
-			GL11.glRotatef(direction, xrot, yrot, zrot);
-		}
-		
-		
+//		TileEntityEssentiaCoalescer tile = (TileEntityEssentiaCoalescer) tileentity;
+//		ForgeDirection dir = tile.getOutputDirection();
+//		
+//		if (dir != ForgeDirection.EAST) {
+//			float direction, xrot, yrot, zrot;
+//			direction = xrot = yrot = zrot = 0f;
+//			
+//			switch(dir) {
+//			case NORTH:
+//				direction = 90f;
+//				yrot = 1.0f;
+//				break;
+//			case SOUTH:
+//				direction = -90f;
+//				yrot = 1.0f;
+//				break;
+//			case WEST:
+//				direction = 180f;
+//				yrot = 180.0f;
+//				break;
+//			case DOWN:
+//				direction = -90f;
+//				zrot = 1.0f;
+//				break;
+//			case UP:
+//			default:
+//				direction = 90f;
+//				zrot = 1.0f;
+//				break;
+//			}
+//			
+//			GL11.glRotatef(direction, xrot, yrot, zrot);
+//		}
 		
 		model.renderAll();
 		

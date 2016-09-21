@@ -42,7 +42,7 @@ tc.research_text.FOCUS_leech=[TI] Nope, that's mine now!
 tc.research_name.basic_titan=Titans!
 tc.research_text.basic_titan=[TI] Where do they come from? Why is their neck so soft?
 tc.research_name.essentia_coalescer=Collecting Essentia
-tc.research_category.essentia_coalescer=[TI] Jumping down an entire energy state!
+tc.research_text.essentia_coalescer=[TI] Jumping down an entire energy state!
 #
 tc.research_category.Titanic=Titanic
 #

@@ -2,10 +2,13 @@ package com.SkyIsland.AgeOfTitans.thaumcraft;
 
 import com.SkyIsland.AgeOfTitans.AgeOfTitans;
 
+import cpw.mods.fml.common.eventhandler.EventPriority;
+import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import net.minecraft.block.Block;
 import net.minecraft.entity.effect.EntityLightningBolt;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.util.ForgeDirection;
 import net.minecraftforge.event.world.BlockEvent;
 import net.minecraftforge.oredict.OreDictionary;
@@ -36,6 +39,7 @@ public class TileEntityEssentiaCoalescer extends TileThaumcraft implements IEsse
 		suction = 0;
 		setRight = false;
 		partCooldown = -200;
+
 	}
 	
 //	/**
@@ -47,26 +51,6 @@ public class TileEntityEssentiaCoalescer extends TileThaumcraft implements IEsse
 //		this.setRight = getSetup();
 //	}
 	
-	public void onBlockBreak(BlockEvent.BreakEvent event) {
-		System.out.println("tilebreak");
-		//see if the broken block is part of what we care about!
-		if (event.x == xCoord - 2 || event.x == xCoord + 2) {
-			System.out.println("x");
-			if (event.z == zCoord - 2 || event.z == zCoord + 2) {
-				System.out.println("z");
-				if (event.y == yCoord || event.y == yCoord + 1) {
-					System.out.println("y! And we're in!");
-					//they broke part of us!
-					EntityLightningBolt lightning = new EntityLightningBolt(worldObj, xCoord, yCoord, zCoord);
-					worldObj.addWeatherEffect(lightning);
-					this.setRight = false;
-				}
-			}
-		} else {
-			System.out.println("event x: " + event.x + "  <> our x: " + xCoord);
-		}
-	}
-	
 	/**
 	 * Looks at setup and determines whether or not the construct is correct.
 	 * This is the method that determines what the proper
@@ -74,6 +58,11 @@ public class TileEntityEssentiaCoalescer extends TileThaumcraft implements IEsse
 	 * @return
 	 */
 	private boolean getSetup() {
+		if (setRight) {
+			MinecraftForge.EVENT_BUS.unregister(this);
+			setRight = false;
+		}
+		
 		//simple block check. Stop rampant tile entity errors
 		if (!(worldObj.getBlock(xCoord, yCoord, zCoord) instanceof EssentiaCoalescer)) {
 			return false;
@@ -96,6 +85,7 @@ public class TileEntityEssentiaCoalescer extends TileThaumcraft implements IEsse
 			}
 		}
 		
+        MinecraftForge.EVENT_BUS.register(this);
 		return true;
 	}
 	
@@ -242,4 +232,31 @@ public class TileEntityEssentiaCoalescer extends TileThaumcraft implements IEsse
 //				nbttagcompound.getInteger(NBT_DIR)
 //				);
 //    }
+	
+
+    
+    @SubscribeEvent(priority = EventPriority.LOWEST)
+    public void onWorldBlockBreak(BlockEvent.BreakEvent event) {
+    	
+    	//monitor and make sure it was changed
+    	if (event.isCanceled())
+    		return;
+    	
+		//see if the broken block is part of what we care about!
+		if (event.x == xCoord - 2 || event.x == xCoord + 2) {
+			if (event.z == zCoord - 2 || event.z == zCoord + 2) {
+				if (event.y == yCoord || event.y == yCoord + 1) {
+					//they broke part of us!
+					EntityLightningBolt lightning = new EntityLightningBolt(worldObj, xCoord, yCoord, zCoord);
+					worldObj.addWeatherEffect(lightning);
+					this.setRight = false;
+					MinecraftForge.EVENT_BUS.unregister(this); //broken, can't be fixd. stop listening
+				}
+			}
+		}
+	}
+    
+    public void onBreak() {
+    	MinecraftForge.EVENT_BUS.unregister(this);
+    }
 }

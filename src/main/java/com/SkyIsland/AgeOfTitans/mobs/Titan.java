@@ -79,6 +79,7 @@ public class Titan extends EntityIronGolem implements IEntityMultiPart {
 		this.getEntityAttribute(SharedMonsterAttributes.knockbackResistance).setBaseValue(1.00);
 		this.getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(130);
 		this.getEntityAttribute(SharedMonsterAttributes.movementSpeed).setBaseValue(0.275D + (rand.nextDouble() * .02));
+		this.setHealth(this.getMaxHealth());
 		setupAI();
     	
 		switch (Titan.random.nextInt(3)) {

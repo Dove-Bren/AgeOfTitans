@@ -76,6 +76,7 @@ public class FleshTitan extends Titan implements IBossDisplayData {
 		this.getEntityAttribute(SharedMonsterAttributes.followRange).setBaseValue(60.0);
 		this.getEntityAttribute(SharedMonsterAttributes.knockbackResistance).setBaseValue(1.00);
 		this.getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(200);
+		this.setHealth(this.getMaxHealth());
 		this.getEntityAttribute(SharedMonsterAttributes.movementSpeed).setBaseValue(0.32 + (rand.nextDouble() * .02));
 		setupAI();
 		

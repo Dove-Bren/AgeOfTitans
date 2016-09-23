@@ -1,11 +1,8 @@
 package com.SkyIsland.AgeOfTitans.items;
 
-import java.util.List;
-
 import com.SkyIsland.AgeOfTitans.AgeOfTitans;
-import com.SkyIsland.AgeOfTitans.mobs.FriendlyTitan;
+import com.SkyIsland.AgeOfTitans.statuseffects.TitanHeartEffect;
 
-import net.minecraft.entity.effect.EntityLightningBolt;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemFood;
 import net.minecraft.item.ItemStack;
@@ -16,25 +13,18 @@ import net.minecraft.world.World;
  * @author Skyler
  *
  */
-public class TitanHeart extends ItemFood {
+public class TitanHeartNugget extends ItemFood {
 	
-	public static final String unlocalizedName = "titan_heart";
+	public static final String unlocalizedName = "titan_heart_nugget";
 	
 //	public static ToolMod modifier;
 
-	public TitanHeart() {
+	public TitanHeartNugget() {
         super(1, 1f, false);
         this.setUnlocalizedName(unlocalizedName);
-        this.setTextureName(AgeOfTitans.MODID + ":titan_heart");
+        this.setTextureName(AgeOfTitans.MODID + ":titan_heart_nugget");
         this.maxStackSize = 64;
         this.setCreativeTab(AgeOfTitans.creativeTab);
-    }
-
-    @SuppressWarnings({ "rawtypes", "unchecked" })
-	@Override
-    public void addInformation(ItemStack itemStack, EntityPlayer entityPlayer, List list, boolean bool) {
-        list.add("The still heart of a titan. As massive as it is");
-        list.add("disgusting. The stench is monsterous, but appealing...");
     }
     
     public ItemStack onEaten(ItemStack itemstack, World world, EntityPlayer player) {
@@ -43,25 +33,7 @@ public class TitanHeart extends ItemFood {
     	if (world.isRemote)
     		return ret;
     	
-    	//call down lightning, and summon a friendly!
-    	double xoffset, zoffset;
-    	double yaw  = ((player.rotationYaw)  * Math.PI) / 180f;
-    	xoffset = Math.cos(yaw) * 5.0;
-    	zoffset = Math.sin(yaw) * 5.0;
-    	
-    	double x = player.posX + xoffset,
-    		   y = (int) player.posY,
-    		   z = player.posZ + zoffset;
-    	
-    	//summon lightning
-    	EntityLightningBolt lightning = new EntityLightningBolt(world, x, y, z);
-		world.addWeatherEffect(lightning);
-		
-		FriendlyTitan titan = new FriendlyTitan(world);
-		titan.setPosition(x, y, z);
-		titan.setTimer(20 * 300); //300 seconds, of 5 minutes :D
-		titan.setDieOnTimer();
-		world.spawnEntityInWorld(titan);
+    	TitanHeartEffect.instance.register(player, 20 * 20, 0);
     	
     	return ret;
     }

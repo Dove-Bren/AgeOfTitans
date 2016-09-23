@@ -13,6 +13,8 @@ import com.SkyIsland.AgeOfTitans.items.CrystalVinteum;
 import com.SkyIsland.AgeOfTitans.items.ItemVectorSword;
 import com.SkyIsland.AgeOfTitans.items.TitanAmalgam;
 import com.SkyIsland.AgeOfTitans.items.TitanHeart;
+import com.SkyIsland.AgeOfTitans.items.TitanHeartNugget;
+import com.SkyIsland.AgeOfTitans.items.TitanHeartSoup;
 import com.SkyIsland.AgeOfTitans.items.Titarillium;
 import com.SkyIsland.AgeOfTitans.items.Vectorium;
 import com.SkyIsland.AgeOfTitans.items.VinteumBlend;
@@ -20,6 +22,7 @@ import com.SkyIsland.AgeOfTitans.mobs.FleshTitan;
 import com.SkyIsland.AgeOfTitans.mobs.FriendlyTitan;
 import com.SkyIsland.AgeOfTitans.mobs.NormalTitan;
 import com.SkyIsland.AgeOfTitans.mobs.Titan;
+import com.SkyIsland.AgeOfTitans.statuseffects.TitanHeartEffect;
 import com.SkyIsland.AgeOfTitans.thaumcraft.TitanWandCore;
 
 import cpw.mods.fml.common.Mod;
@@ -71,6 +74,10 @@ public class AgeOfTitans //Start the class Declaration
     
     public static Item titanHeart;
     
+    public static Item titanNugget;
+    
+    public static Item titanSoup;
+    
     public static Item cr2;
     
     public static CreativeTabs creativeTab;
@@ -116,6 +123,8 @@ public class AgeOfTitans //Start the class Declaration
 	            return 1;
 	        }
 	    };
+	    
+	    new TitanHeartEffect();
     	
     	vectorSword = new ItemVectorSword("vector_sword", Vectorium.Material);
     	GameRegistry.registerItem(vectorSword, "vector_sword");
@@ -123,6 +132,10 @@ public class AgeOfTitans //Start the class Declaration
     	GameRegistry.registerItem(cr2, CR2.unlocalizedName);
     	titanHeart = new TitanHeart();
     	GameRegistry.registerItem(titanHeart, TitanHeart.unlocalizedName);
+    	titanNugget = new TitanHeartNugget();
+    	GameRegistry.registerItem(titanNugget, TitanHeartNugget.unlocalizedName);
+    	titanSoup = new TitanHeartSoup();
+    	GameRegistry.registerItem(titanSoup, TitanHeartSoup.unlocalizedName);
     	
     	MinecraftForge.EVENT_BUS.register(new FleshTitan.DropHandler());   	    
 
@@ -208,6 +221,9 @@ public class AgeOfTitans //Start the class Declaration
     	
     	GameRegistry.addShapedRecipe(new ItemStack(HeartBlock.block, 8), "aaa", "aba", "aaa",
     			'a', Blocks.stone, 'b', titanHeart);
+    	
+    	GameRegistry.addShapelessRecipe(new ItemStack(titanSoup), Items.chicken, Items.bowl, titanHeart, Items.milk_bucket);
+    	GameRegistry.addShapelessRecipe(new ItemStack(titanNugget), Items.wheat, titanHeart, Items.sugar);
     	
     }
     

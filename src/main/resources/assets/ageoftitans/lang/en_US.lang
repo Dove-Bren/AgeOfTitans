@@ -3,6 +3,7 @@ item.vector_sword.name=Vector Sword
 item.crr.name=CR2 Pellets
 item.vectorium_bucket.name=Vectorium Bucket
 item.titan_heart.name=Titan Heart
+item.titan_heart_nugget.name=Titan Heart Nugget
 item.amalgam_ingot.name=Titan Amalgam Ingot
 item.amalgam_bucket.name=Titan Amalgam
 item.titarillium_ingot.name=Titarillium Ingot
@@ -57,6 +58,7 @@ tc.research_category.Titanic=Titanic
 #
 item.Wand.titan_wand.rod=Titan Heart
 item.Wand.crystal_vinteum.cap=Crystalline-Capped
+item.Wand.titarillium.cap=Titarillium-Capped
 #
 itemGroup.ageoftitans=Age Of Titans
 itemGroup.ageoftitans.magic=Age of Titans Magic

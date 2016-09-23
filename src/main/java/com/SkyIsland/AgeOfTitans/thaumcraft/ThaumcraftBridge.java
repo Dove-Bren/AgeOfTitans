@@ -61,7 +61,7 @@ public class ThaumcraftBridge {
 		  vinteumcap = new WandCap("crystal_vinteum", CrystalVinteumCap.visRate, new ItemStack(CrystalVinteumCap.cap), 1);
 	      vinteumcap.setTexture(new ResourceLocation(AgeOfTitans.MODID + ":textures/models/cap_crystal_vinteum.png"));
 	      titarilliumcap = new WandCap("titarillium", TitarilliumCap.visRate, new ItemStack(TitarilliumCap.cap), 1);
-	      titarilliumcap.setTexture(new ResourceLocation(AgeOfTitans.MODID + ":textures/models/cap_titarillium_cap.png"));
+	      titarilliumcap.setTexture(new ResourceLocation(AgeOfTitans.MODID + ":textures/models/cap_titarillium.png"));
 		
 		EssentiaCoalescer.preInit();
 	}
@@ -132,6 +132,10 @@ public class ThaumcraftBridge {
 				  (new AspectList()).add(Aspect.MAGIC, 4).add(Aspect.LIFE, 2).add(Aspect.HEAL, 2).add(Aspect.DARKNESS, 2));
 		  ThaumcraftApi.registerObjectTag(new ItemStack(CrystalVinteumCap.cap), 
 				  (new AspectList()).add(Aspect.MAGIC, 4).add(Aspect.CRYSTAL, 2));
+		  ThaumcraftApi.registerObjectTag(new ItemStack(InertTitarilliumCap.cap), 
+				  (new AspectList()).add(Aspect.MAGIC, 2).add(Aspect.METAL, 2));
+		  ThaumcraftApi.registerObjectTag(new ItemStack(TitarilliumCap.cap), 
+				  (new AspectList()).add(Aspect.MAGIC, 2).add(Aspect.METAL, 2).add(Aspect.TOOL, 4));
 		  ThaumcraftApi.registerObjectTag(new ItemStack(DestructionFocus.focus), 
 				  (new AspectList()).add(DarkAspects.WRATH, 4).add(Aspect.MINE, 2));
 		  ThaumcraftApi.registerObjectTag(new ItemStack(LeechFocus.focus), 

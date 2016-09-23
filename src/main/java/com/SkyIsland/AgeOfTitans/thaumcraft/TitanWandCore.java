@@ -12,6 +12,7 @@ import thaumcraft.api.ThaumcraftApiHelper;
 import thaumcraft.api.aspects.Aspect;
 import thaumcraft.api.aspects.AspectList;
 import thaumcraft.api.wands.IWandRodOnUpdate;
+import thaumcraft.common.items.wands.ItemWandCasting;
 
 public class TitanWandCore extends Item {
 
@@ -46,7 +47,7 @@ public class TitanWandCore extends Item {
 			if (!itemstack.hasTagCompound())
 				itemstack.setTagCompound(new NBTTagCompound());
 			
-			AspectList list = new AspectList().add(Aspect.AIR, -1)
+			AspectList list = new AspectList().add(Aspect.AIR, rechargeMax * 100)
 					.add(Aspect.WATER, rechargeMax * 100)
 					.add(Aspect.EARTH, rechargeMax * 100)
 					.add(Aspect.FIRE, rechargeMax * 100)
@@ -75,14 +76,23 @@ public class TitanWandCore extends Item {
 				delay = tryConsume(itemstack, player);
 			}
 			
+			if (player.ticksExisted % 200 == 0)
 			if (isFull(itemstack)) {
-				
+				ItemWandCasting wand = (ItemWandCasting) itemstack.getItem();
 				for (Aspect aspect : list.getAspects()) {
-					//don't know how else ot ask how much vis a wand has!
-					if (ThaumcraftApiHelper.consumeVisFromWand(itemstack, player, new AspectList().add(aspect, rechargeMax * 100), false, true))
-							continue; //can take out, so don't recharge
+					if (wand.getVis(itemstack, aspect) > rechargeMax * 100)
+						continue;
 					
-					ThaumcraftApiHelper.consumeVisFromWand(itemstack, player, new AspectList().add(aspect, -1), true, true);
+					wand.addVis(itemstack, aspect, 1, true);
+					
+					//don't know how else ot ask how much vis a wand has!
+					
+//					if (ThaumcraftApiHelper.consumeVisFromWand(itemstack, player, new AspectList().add(aspect, rechargeMax * 100), false, true)) {
+//							System.out.print("/");
+//							continue; //can take out, so don't recharge
+//					}
+//					System.out.print(".");
+//					ThaumcraftApiHelper.consumeVisFromWand(itemstack, player, new AspectList().add(aspect, -1), true, true);
 				}
 			}
 			
@@ -94,26 +104,34 @@ public class TitanWandCore extends Item {
 	protected static int tryConsume(ItemStack wand, EntityPlayer player) {
 		//try to eat food from the player's inventory and
 		//return new food time
-		ItemStack firstFood = null;
-		
-		for (ItemStack item : player.inventory.mainInventory) {
+		ItemStack item = null;
+		int pos;
+		for (pos = 0; pos < player.inventory.mainInventory.length; pos++) {
+			item = player.inventory.mainInventory[pos];
 			if (item != null && item.getItem() instanceof ItemFood) {
-				firstFood = item;
+				//firstFood = item;
 				break;
 			}
 		}
 		
+		if (pos >= player.inventory.mainInventory.length)
+			return 0; //looked too far, didn't find anything
 		
-		if (firstFood == null)
+		if (item == null) {
+			//something went wrong
 			return 0;
+		}
 		
-		firstFood.stackSize--;
-		//if (firstFood.stackSize <= 0)
+		item.stackSize--;
+		if (item.stackSize <= 0) {
+			player.inventory.mainInventory[pos] = null;
+		}
+			
 			
 	
 		player.playSound(AgeOfTitans.MODID + ":item.titan_wand.eat", 1.0f, .8f + (float) (AgeOfTitans.random.nextDouble() * .2));
 		setFull(wand, true);
-		int foodLevel = ((ItemFood) firstFood.getItem()).func_150905_g(firstFood); //could be null even :(
+		int foodLevel = ((ItemFood) item.getItem()).func_150905_g(item); //could be null even :(
 		return FOOD_RATE * foodLevel;
 	}
 

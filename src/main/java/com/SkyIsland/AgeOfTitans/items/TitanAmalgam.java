@@ -12,6 +12,7 @@ import net.minecraft.block.Block;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
@@ -183,7 +184,9 @@ public class TitanAmalgam {
 		@Override
 		public void onUpdate(ItemStack stack, World world, Entity entity, int partial_ticks, boolean p_77663_5_) {
 			if (entity instanceof EntityLiving) {
-				((EntityLiving) entity).addPotionEffect(new PotionEffect(Potion.poison.id, 1, 100, true));
+				((EntityLiving) entity).addPotionEffect(new PotionEffect(Potion.poison.id, 100, 0, false));
+			} else if (entity instanceof EntityLivingBase) {
+				((EntityLivingBase) entity).addPotionEffect(new PotionEffect(Potion.poison.id, 100, 0, false));
 			}
 		}
 		

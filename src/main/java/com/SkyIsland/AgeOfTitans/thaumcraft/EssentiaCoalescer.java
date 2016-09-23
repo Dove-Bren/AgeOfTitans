@@ -4,6 +4,8 @@ import com.SkyIsland.AgeOfTitans.AgeOfTitans;
 
 import cpw.mods.fml.client.registry.ClientRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
@@ -38,6 +40,7 @@ public class EssentiaCoalescer extends BlockContainer {
         this.maxY = 0.425f;
 	}
 	
+	@SideOnly(Side.CLIENT)
 	public static void clientInit() {
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityEssentiaCoalescer.class, new RendererEssentiaCoalescer());
 	}

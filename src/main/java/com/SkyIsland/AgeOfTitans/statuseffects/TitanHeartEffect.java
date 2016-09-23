@@ -7,7 +7,7 @@ import java.util.Map.Entry;
 
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
-import cpw.mods.fml.common.gameevent.TickEvent.ServerTickEvent;
+import cpw.mods.fml.common.gameevent.TickEvent;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
@@ -100,9 +100,12 @@ public class TitanHeartEffect {
 	}
 	
 	@SubscribeEvent
-	public void update(ServerTickEvent event) {
+	public void update(TickEvent event) {
+		if (event.type == TickEvent.Type.CLIENT ||
+				event.type == TickEvent.Type.SERVER) {
 		doRise();
 		doFall();
+		}
 	}
 	
 	private void doRise() {
@@ -168,15 +171,15 @@ public class TitanHeartEffect {
 	
 	private void performRise(EntityLivingBase ent, int amp) {
 		//good effects: night vision, strength
-		ent.addPotionEffect(strength[amp]);
-		ent.addPotionEffect(vision[amp]);
+		ent.addPotionEffect(new PotionEffect(strength[amp]));
+		ent.addPotionEffect(new PotionEffect(vision[amp]));
 	}
 	
 	private void performFall(EntityLivingBase ent, int amp) {
 		//bad effects: slowness, weakness, -resistance
-		ent.addPotionEffect(slowness[amp]);
-		ent.addPotionEffect(weakness[amp]);
-		ent.addPotionEffect(vuln[amp]);
+		ent.addPotionEffect(new PotionEffect(slowness[amp]));
+		ent.addPotionEffect(new PotionEffect(weakness[amp]));
+		ent.addPotionEffect(new PotionEffect(vuln[amp]));
 	}
 	
 }

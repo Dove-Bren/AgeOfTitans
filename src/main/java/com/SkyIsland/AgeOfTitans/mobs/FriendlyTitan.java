@@ -10,11 +10,14 @@ import net.minecraft.entity.ai.EntityAINearestAttackableTarget;
 import net.minecraft.entity.ai.EntityAISwimming;
 import net.minecraft.entity.ai.EntityAIWander;
 import net.minecraft.entity.ai.EntityAIWatchClosest;
-import net.minecraft.entity.boss.IBossDisplayData;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 
-public class FriendlyTitan extends Titan implements IBossDisplayData {
+public class FriendlyTitan extends Titan {
+	
+	private static final String NBT_DIE = "deathOnTimer";
+	private static final String NBT_TIME = "titanTimer";
 	
 	protected int timer;
 	
@@ -55,11 +58,25 @@ public class FriendlyTitan extends Titan implements IBossDisplayData {
 	}
 	
 	@Override
+	public void writeEntityToNBT(NBTTagCompound nbt) {
+		super.writeEntityToNBT(nbt);
+		nbt.setBoolean(NBT_DIE, dieOnTimer);
+		nbt.setInteger(NBT_TIME, timer);
+	}
+	
+	@Override
+	public void readEntityFromNBT(NBTTagCompound nbt) {
+		super.readEntityFromNBT(nbt);
+		this.dieOnTimer = nbt.getBoolean(NBT_DIE);
+		this.timer = nbt.getInteger(NBT_TIME);
+	}
+	
+	@Override
 	public void onLivingUpdate() {
 		if (timer > -1) {
 			//gonna turn back after some time
 			timer--;
-			if (timer == 0) {
+			if (timer <= 0) {
 				if (dieOnTimer) {
 					if (!worldObj.isRemote)
 					worldObj.removeEntity(this);

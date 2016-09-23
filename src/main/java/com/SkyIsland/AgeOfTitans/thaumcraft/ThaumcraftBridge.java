@@ -267,7 +267,7 @@ public class ThaumcraftBridge {
 										.add(Aspect.FLESH, 1)
 										.add(Aspect.MAN, 1),
 			1, 1, 1, new ItemStack(TitanWandCore.wand), new String[]{"basic_titan", "ROD_primal_staff"}, new ItemStack[]{new ItemStack(AgeOfTitans.titanHeart)},
-			true, false),
+			true, false, 3),
 		CRYSTAL_VINTEUM("crystal_vinteum", new AspectList().add(Aspect.AURA, 4).add(Aspect.MAGIC, 2).add(Aspect.CRYSTAL, 5),
 				2, 5, 1, new ItemStack(CrystalVinteum.item),
 				new String[]{"basic_titan"}, new ItemStack[]{new ItemStack(ItemsCommonProxy.itemOre, 1, ItemOre.META_VINTEUMDUST), new ItemStack(BlocksCommonProxy.liquidEssence)}, true, true),
@@ -279,13 +279,13 @@ public class ThaumcraftBridge {
 				false, true),
 		DESTRUCTION_FOCUS("FOCUS_destruction", new AspectList().add(Aspect.MINE, 1).add(DarkAspects.WRATH, 1).add(Aspect.GREED, 1),
 				1, 7, 2, new ItemStack(DestructionFocus.focus), new String[]{"FOCUSFIRE", "crystal_vinteum"}, null,
-				false, false),
+				false, false, 1),
 		LEECH_FOCUS("FOCUS_leech", new AspectList().add(Aspect.HUNGER, 1).add(DarkAspects.WRATH, 1).add(DarkAspects.GLUTTONY, 1),
 				3, 7, 2, new ItemStack(LeechFocus.focus), new String[]{"FOCUSFIRE", "crystal_vinteum", LibResearch.KEY_FOCUS_HEAL}, null,
-				false, false),
+				false, false, 1),
 		TITAN_FOCUS("FOCUS_titan", new AspectList().add(Aspect.MAN, 1).add(DarkAspects.WRATH, 1).add(Aspect.ENTROPY, 1).add(Aspect.ORDER, 1),
 				2, 8, 3, new ItemStack(TransformFocus.focus), new String[]{"FOCUSFIRE", "crystal_vinteum", "FOCUS_leech", "FOCUS_destruction"}, new ItemStack[]{new ItemStack(AgeOfTitans.titanHeart)},
-				false, false),
+				false, false, 1),
 		ESSENTIA_COALESCER("essentia_coalescer", new AspectList().add(Aspect.ELDRITCH, 1).add(Aspect.DARKNESS, 1).add(Aspect.TRAVEL, 1).add(Aspect.MAGIC, 1).add(Aspect.WATER, 1),
 				6, 5, 3, new ItemStack(EssentiaCoalescer.block), new String[]{"THAUMATORIUM", "MIRRORESSENTIA", "crystal_vinteum", "VOIDMETAL"}, null,
 				true, false);
@@ -300,6 +300,13 @@ public class ThaumcraftBridge {
 		
 		private Research(String key, AspectList aspects, int x, int y, int complexity,
 				ItemStack icon, String[] parents, ItemStack[] itemScans, boolean isSpecial, boolean isSecondary) {
+			this(key, aspects, x, y, complexity, icon, parents, itemScans, isSpecial,
+					isSecondary, 0);
+		}
+		
+		private Research(String key, AspectList aspects, int x, int y, int complexity,
+				ItemStack icon, String[] parents, ItemStack[] itemScans,
+				boolean isSpecial, boolean isSecondary, int warp) {
 			item = new ResearchItem(key, RESEARCH_CATEGORY, aspects, x, y, complexity, icon);
 			if (aspects == null)
 				item.isAutoUnlock();
@@ -324,6 +331,10 @@ public class ThaumcraftBridge {
 			}
 			if (isSecondary)
 				item.setSecondary();
+			
+			if (warp > 0) {
+				ThaumcraftApi.addWarpToResearch(key, warp);
+			}
 					
 			//String key, String category, AspectList tags, int col, int row, int complex, ResourceLocation icon
 		}

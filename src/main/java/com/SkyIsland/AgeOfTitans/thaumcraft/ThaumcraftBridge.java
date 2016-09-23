@@ -34,6 +34,7 @@ import thaumcraft.api.wands.WandRod;
 import thaumcraft.common.config.ConfigBlocks;
 import thaumcraft.common.config.ConfigItems;
 import thaumic.tinkerer.common.lib.LibResearch;
+import vazkii.botania.common.item.ModItems;
 
 public class ThaumcraftBridge {
 	
@@ -43,19 +44,24 @@ public class ThaumcraftBridge {
 	
 	public static WandRod titanrod;
 	public static WandCap vinteumcap;
+	public static WandCap titarilliumcap;
 	
 	public ThaumcraftBridge() {
 		//set up subitems
 		new TitanWandCore("titan_wand_core");
 		new CrystalVinteumCap("crystal_vinteum_cap");
+		new InertTitarilliumCap("inert_titarillium_cap");
+		new TitarilliumCap("titarillium_cap");
 		new DestructionFocus("destruction_focus");
 		new LeechFocus("leech_focus");
 		new TransformFocus("titan_focus");
 		
 		titanrod = new WandRod("titan_wand", TitanWandCore.capacity, new ItemStack(TitanWandCore.wand),
 				  10, new TitanWandCore.RodUpdated(), new ResourceLocation(AgeOfTitans.MODID + ":textures/models/titan_wand_core.png"));
-		  vinteumcap = new WandCap("crystal_vinteum_cap", CrystalVinteumCap.visRate, new ItemStack(CrystalVinteumCap.cap), 1);
+		  vinteumcap = new WandCap("crystal_vinteum", CrystalVinteumCap.visRate, new ItemStack(CrystalVinteumCap.cap), 1);
 	      vinteumcap.setTexture(new ResourceLocation(AgeOfTitans.MODID + ":textures/models/cap_crystal_vinteum.png"));
+	      titarilliumcap = new WandCap("titarillium", TitarilliumCap.visRate, new ItemStack(TitarilliumCap.cap), 1);
+	      titarilliumcap.setTexture(new ResourceLocation(AgeOfTitans.MODID + ":textures/models/cap_titarillium_cap.png"));
 		
 		EssentiaCoalescer.preInit();
 	}
@@ -136,6 +142,12 @@ public class ThaumcraftBridge {
 	}
 	
 	private static final void registerRecipes() {
+		
+		TitarilliumCap.recipe = ThaumcraftApi.addInfusionCraftingRecipe("CAP_titarillium", new ItemStack(TitarilliumCap.cap), 20,
+				new AspectList().add(Aspect.MAGIC, 16).add(DarkAspects.WRATH, 12),
+				new ItemStack(InertTitarilliumCap.cap),
+				new ItemStack[]{new ItemStack(ModItems.manaResource, 1, 1), new ItemStack(ModItems.manaResource, 1, 1)});
+		
 		InfusionRecipe recipe;
 		List<ResearchPage> pages;
 		ItemStack wardedGlass = ItemApi.getBlock("blockCosmeticOpaque", 2);
@@ -184,7 +196,7 @@ public class ThaumcraftBridge {
 		arcaneRecipe = ThaumcraftApi.addArcaneCraftingRecipe(
 				"FOCUS_leech", new ItemStack(LeechFocus.focus), new AspectList().add(Aspect.ENTROPY, 15).add(Aspect.FIRE, 10).add(Aspect.WATER, 10),
 				"vgv", "sps", "vgv", 'v', CrystalVinteum.item, 'g', new ItemStack(ForbiddenItems.deadlyShards, 1, 6),
-				's', new ItemStack(ForbiddenItems.deadlyShards, 1, 5), 'h', ItemApi.getItem("itemFocusPech", 0));
+				's', new ItemStack(ForbiddenItems.deadlyShards, 1, 5), 'h', new ItemStack(ConfigItems.itemFocusPech));
 		
 		pages = new LinkedList<ResearchPage>();
 		pages.add(new ResearchPage("After transforming the Pech's Curse focus into one of healing, you wondered what else you might be able to do. Combined with the power of the crystal vinteum you've made, you have found a new use for the focus. Instead of completely discarding the focus' inate harming abilities, you alter them such that the target is still damaged, but their energy is instead transferred to you! With the leech focus, damage dealt to enemies restores your own hunger!"));
@@ -227,6 +239,16 @@ public class ThaumcraftBridge {
 		pages.add(new ResearchPage(recipe));
 		
 		Research.TITAN_FOCUS.getItem().setPages(pages.toArray(new ResearchPage[0]));
+		
+		pages = new LinkedList<ResearchPage>();
+		
+		pages.add(new ResearchPage("Finally! A cap worth while! You've found that the elementium used in crafting titarillium is augmented by the hard metal exterior rather than deterred. As such, caps made of titarillium are incredibly adept at channeling magic."));
+		pages.add(new ResearchPage(InertTitarilliumCap.recipe));
+		pages.add(new ResearchPage("Unfortunately, however, the metal very still resistent to shaping. As such, the wand caps you make by simply shaping the metal aren't as effective. The effect is all but nullified, however, through a simple infusion."));
+		pages.add(new ResearchPage(TitarilliumCap.recipe));
+		
+		Research.TITARILLIUM_CAP.getItem().setPages(pages.toArray(new ResearchPage[0]));
+		
 	}
 	
 	private static final void registerResearch() {
@@ -251,6 +273,9 @@ public class ThaumcraftBridge {
 				new String[]{"basic_titan"}, new ItemStack[]{new ItemStack(ItemsCommonProxy.itemOre, 1, ItemOre.META_VINTEUMDUST), new ItemStack(BlocksCommonProxy.liquidEssence)}, true, true),
 		VINTEUM_CAP("CAP_crystal_vinteum", new AspectList().add(Aspect.METAL, 4).add(Aspect.CRYSTAL, 3),
 				1, 3, 2, new ItemStack(CrystalVinteumCap.cap), new String[]{"CAP_gold", "crystal_vinteum"}, new ItemStack[]{new ItemStack(CrystalVinteum.item)},
+				false, true),
+		TITARILLIUM_CAP("CAP_titarillium", new AspectList().add(Aspect.METAL, 3).add(Aspect.TOOL, 2).add(Aspect.BEAST, 2).add(Aspect.MAN, 2),
+				0, 3, 1, new ItemStack(TitarilliumCap.cap), new String[]{"CAP_thaumium", "crystal_vinteum"}, null,
 				false, true),
 		DESTRUCTION_FOCUS("FOCUS_destruction", new AspectList().add(Aspect.MINE, 1).add(DarkAspects.WRATH, 1).add(Aspect.GREED, 1),
 				1, 7, 2, new ItemStack(DestructionFocus.focus), new String[]{"FOCUSFIRE", "crystal_vinteum"}, null,

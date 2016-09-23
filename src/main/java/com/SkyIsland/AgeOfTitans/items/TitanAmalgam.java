@@ -70,7 +70,7 @@ public class TitanAmalgam {
 				new FluidStack(AmalgamFluid.fluid, 144), cast, false, 25);
 
 		GameRegistry.addShapelessRecipe(new ItemStack(ingot), 
-				AgeOfTitans.titanHeart, new ItemStack(ItemsCommonProxy.itemOre, ItemOre.META_MOONSTONE),
+				AgeOfTitans.titanHeart, new ItemStack(ItemsCommonProxy.itemOre, 1, ItemOre.META_MOONSTONE),
 				new ItemStack(OreDictionary.getOres("ingotAstralSilver").get(0).getItem(), 0, OreDictionary.WILDCARD_VALUE)
 				);
 		
@@ -183,7 +183,7 @@ public class TitanAmalgam {
 		@Override
 		public void onUpdate(ItemStack stack, World world, Entity entity, int partial_ticks, boolean p_77663_5_) {
 			if (entity instanceof EntityLiving) {
-				((EntityLiving) entity).addPotionEffect(new PotionEffect(Potion.poison.id, 100, 0, true));
+				((EntityLiving) entity).addPotionEffect(new PotionEffect(Potion.poison.id, 1, 100, true));
 			}
 		}
 		

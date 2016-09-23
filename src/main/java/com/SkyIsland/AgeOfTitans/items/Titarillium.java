@@ -36,14 +36,17 @@ public class Titarillium {
 	
 	public static final TitarilliumIngot ingot = new TitarilliumIngot("titarillium_ingot");
 	
+	public static final TitarilliumNugget nugget = new TitarilliumNugget("titarillium_nugget");
+	
 	public static void preInit() {
 	
 		
 		GameRegistry.registerItem(ingot, "titarillium_ingot");
+		GameRegistry.registerItem(nugget, "titarillium_nugget");
 		TitarilliumFluid.preinit();
 		
 		
-		TinkersConstructUtils.addMaterial(id, "titarillium", "Titarillium", 1200, 15, 6, 11, 1.90f, 5.0f, 18, 2.6f, 0.4f, EnumChatFormatting.DARK_RED.toString(), 
+		TinkersConstructUtils.addMaterial(id, "titarillium", "Titarillium", 1200, 1000, 6, 11, 1.90f, 5.0f, 18, 2.6f, 0.4f, EnumChatFormatting.DARK_RED.toString(), 
 				//255 << 24 | 206 << 16 | 34 << 8 | 40);
 				0xC03040);
 		TinkersConstructUtils.addMaterialItem(id, new ItemStack(ingot), 1);
@@ -51,6 +54,8 @@ public class Titarillium {
 		TinkersConstructUtils.addPartCastinMaterial(TitarilliumFluid.fluid.getName(), id);
 		TinkersConstructUtils.addMeltingItem(TitarilliumFluid.fluid.getName(), new ItemStack(ingot), new ItemStack(Blocks.iron_block), 144, 500);
 		
+		GameRegistry.addShapelessRecipe(new ItemStack(ingot), nugget, nugget, nugget, nugget, nugget, nugget, nugget, nugget, nugget);
+		GameRegistry.addShapelessRecipe(new ItemStack(nugget, 9), ingot);
 		
 		//registerAlloys();
 		
@@ -161,6 +166,18 @@ public class Titarillium {
 		
 		
 		
+	}
+	
+	public static class TitarilliumNugget extends Item {
+		
+		public TitarilliumNugget(String unlocalizedName) {
+			super();
+	        this.setUnlocalizedName(unlocalizedName);
+	        this.setTextureName(AgeOfTitans.MODID + ":" + unlocalizedName);
+	        this.maxStackSize = 64;
+	        this.setMaxDamage(0);
+	        this.setCreativeTab(AgeOfTitans.creativeTab);
+		}
 	}
 	
 	public static class TitarilliumIngot extends Item {

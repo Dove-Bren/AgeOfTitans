@@ -1,7 +1,7 @@
 package com.SkyIsland.AgeOfTitans.thaumcraft;
 
 import com.SkyIsland.AgeOfTitans.AgeOfTitans;
-import com.SkyIsland.AgeOfTitans.items.CrystalVinteum;
+import com.SkyIsland.AgeOfTitans.items.Titarillium;
 
 import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.item.Item;
@@ -11,14 +11,12 @@ import thaumcraft.api.aspects.Aspect;
 import thaumcraft.api.aspects.AspectList;
 import thaumcraft.api.crafting.IArcaneRecipe;
 
-public class CrystalVinteumCap extends Item {
+public class InertTitarilliumCap extends Item {
 
-	public static CrystalVinteumCap cap;
+	public static InertTitarilliumCap cap;
 	public static IArcaneRecipe recipe;
 	
-	public static final float visRate = 0.95f;
-	
-	public CrystalVinteumCap(String unlocalizedName) {
+	public InertTitarilliumCap(String unlocalizedName) {
 		super();
         this.setUnlocalizedName(unlocalizedName);
         this.setTextureName(AgeOfTitans.MODID + ":" + unlocalizedName);
@@ -29,11 +27,11 @@ public class CrystalVinteumCap extends Item {
         cap = this;
         GameRegistry.registerItem(this, unlocalizedName);
         
-        recipe = ThaumcraftApi.addArcaneCraftingRecipe("CAP_crystal_vinteum", new ItemStack(this),
-        		new AspectList().add(Aspect.ORDER, 10).add(Aspect.WATER, 7),
-        		"xxx", "x x", "   ", 'x', CrystalVinteum.item);
+        recipe = ThaumcraftApi.addArcaneCraftingRecipe("CAP_titarillium", new ItemStack(this),
+        		new AspectList().add(Aspect.ORDER, 5).add(Aspect.EARTH, 5),
+        		"xxx", "x x", " x ", 'x', Titarillium.nugget);
         		
 //        		GameRegistry.addShapedRecipe(new ItemStack(this), "xxx", "x x", "   ",
-//        		'x', new ItemStack(CrystalVinteum.item));
+//        		'x', new ItemStack(Titarillium.nugget));
 	}
 }

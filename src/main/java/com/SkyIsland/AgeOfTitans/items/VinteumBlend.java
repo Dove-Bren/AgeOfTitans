@@ -53,8 +53,10 @@ public class VinteumBlend extends Item {
 	
 	@Override
 	public boolean onEntityItemUpdate(EntityItem entityItem) {
-			if (entityItem.worldObj.getBlock((int) entityItem.posX - 1, (int) entityItem.posY, (int) entityItem.posZ - 1)
-					== BlocksCommonProxy.liquidEssence) { 
+		System.out.println("line1");
+			if (entityItem.worldObj.getBlock((int) entityItem.posX/* - 1*/, (int) entityItem.posY, (int) entityItem.posZ/* - 1*/)
+					== BlocksCommonProxy.liquidEssence) {
+				System.out.println("ess");
 					//SaturatedLiquidEtherium.block) {
 				int amount = entityItem.getEntityItem().stackSize;
 				World world = entityItem.worldObj;
@@ -65,7 +67,7 @@ public class VinteumBlend extends Item {
 					entityItem.worldObj.removeEntity(entityItem);
 				}
 				
-				world.setBlock((int) entityItem.posX - 1, (int) entityItem.posY, (int) entityItem.posZ - 1,
+				world.setBlock((int) entityItem.posX/* - 1*/, (int) entityItem.posY, (int) entityItem.posZ/* - 1*/,
 						SaturatedLiquidEtherium.block);
 			}
 //		}

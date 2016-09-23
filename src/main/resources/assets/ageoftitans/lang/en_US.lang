@@ -3,10 +3,13 @@ item.vector_sword.name=Vector Sword
 item.crr.name=CR2 Pellets
 item.vectorium_bucket.name=Vectorium Bucket
 item.titan_heart.name=Titan Heart
-item.amalgam_ingot.name=Titan Amalgum Ingot
-item.amalgam_bucket.name=Titan Amalgum
+item.amalgam_ingot.name=Titan Amalgam Ingot
+item.amalgam_bucket.name=Titan Amalgam
 item.titarillium_ingot.name=Titarillium Ingot
 item.titarillium_bucket.name=Titarillium
+item.titarillium_nugget.name=Titarillium Nugget
+item.inert_titarillium_cap.name=Inert Titarillium Cap
+item.titarillium_cap.name=Charged Titarillium Cap
 item.titan_wand_core.name=Titan Wand Core
 item.vinteum_blend.name=Vinteum Blend
 item.crystal_vinteum.name=Crystal Vinteum
@@ -17,7 +20,7 @@ item.titan_focus.name=Transformation Focus
 #
 tile.molten.vectorium.name=Vectorium
 tile.vectoriumFluidBlock.name=Vectorium
-tile.amalgamFluidBlock.name=Titan Amalgum
+tile.amalgamFluidBlock.name=Titan Amalgam
 tile.titarilliumFluidBlock.name=Titarillium
 tile.saturatedEtheriumFluidBlock.name=Saturated Etherium
 tile.heartblock.name=Heart Block
@@ -27,8 +30,9 @@ entity.ageoftitans.FleshTitan.name=Titan
 entity.ageoftitans.Titan.name=Titan
 entity.ageoftitans.TitanPart.name=Titan
 #
-fluid.VectoriumFluid.name=Vectorium
 fluid.VectoriumFluid=Vectorium
+fluid.titarilliumFluid=Molten Titarillium
+fluid.amalgamFluid=Molten Titan Amalgam
 #
 tc.research_name.ROD_titan_wand=Titan Wands
 tc.research_text.ROD_titan_wand=[TI] What's Bigger Than A Whale?
@@ -36,6 +40,8 @@ tc.research_name.crystal_vinteum=Crystal Vinteum
 tc.research_text.crystal_vinteum=[TI] Bridging the Gap
 tc.research_name.CAP_crystal_vinteum=Crystal Vinteum Caps
 tc.research_text.CAP_crystal_vinteum=[TI] Cheap And Easy
+tc.research_name.CAP_titarillium=Titarillium Caps
+tc.research_text.CAP_titarillium=[TI] I command thee. I Beckon thee. Thou are mine.
 tc.research_name.FOCUS_destruction=Destruction Wand Focus
 tc.research_text.FOCUS_destruction=[TI] They can't be the only ones
 tc.research_name.FOCUS_leech=Leech Wand Focus
@@ -50,6 +56,7 @@ tc.research_text.FOCUS_titan=[TI] Making the big changes
 tc.research_category.Titanic=Titanic
 #
 item.Wand.titan_wand.rod=Titan Heart
+item.Wand.crystal_vinteum.cap=Crystalline-Capped
 #
 itemGroup.ageoftitans=Age Of Titans
 itemGroup.ageoftitans.magic=Age of Titans Magic
